@@ -1,0 +1,11 @@
+{
+  "will_phone_use": {
+    "subtitle": "sounds.willmod.will_phone_use",
+    "sounds": [
+      {
+        "name": "willmod:will_phone_use",
+        "pitch": 0.5
+      }
+    ]
+  }
+}

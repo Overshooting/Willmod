@@ -1,4 +1,4 @@
-package com.example.examplemod;
+/*package com.example.examplemod;
 
 import net.minecraft.client.Minecraft;
 import net.neoforged.api.distmarker.Dist;
@@ -29,3 +29,4 @@ public class ExampleModClient {
         ExampleMod.LOGGER.info("MINECRAFT NAME >> {}", Minecraft.getInstance().getUser().getName());
     }
 }
+*/

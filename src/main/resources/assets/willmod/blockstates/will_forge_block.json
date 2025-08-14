@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "willmod:block/will_forge_block"
+    }
+  }
+}

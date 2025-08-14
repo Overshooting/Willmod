@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "willmod:block/will_forge_top",
+    "side": "willmod:block/will_forge_front"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "williams_face_block",
+  "ingredients": [
+    "minecraft:packed_ice",
+    "willmod:will_shard"
+  ],
+  "result": {
+    "count": 1,
+    "id": "willmod:williams_face_block"
+  }
+}
