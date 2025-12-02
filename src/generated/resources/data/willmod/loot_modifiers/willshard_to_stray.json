@@ -1,0 +1,15 @@
+{
+  "type": "willmod:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:entities/stray"
+    },
+    {
+      "condition": "minecraft:weather_check",
+      "raining": true,
+      "thundering": true
+    }
+  ],
+  "item": "willmod:will_shard"
+}

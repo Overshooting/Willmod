@@ -19,9 +19,9 @@ public class AddItemModifier extends LootModifier {
                     BuiltInRegistries.ITEM.byNameCodec().fieldOf("item").forGetter(e -> e.item)).apply(inst, AddItemModifier::new));
     private final Item item;
 
-    protected AddItemModifier(LootItemCondition[] conditionsIn, Item item) {
+    public AddItemModifier(LootItemCondition[] conditionsIn, Item item) {
         super(conditionsIn);
-        this.item = ItemsInit.WILL_SHARD.get();
+        this.item = item;
     }
 
     @Override
@@ -31,14 +31,15 @@ public class AddItemModifier extends LootModifier {
                 return objectArrayList;
             }
         }
-        objectArrayList.add(new ItemStack(this.item));
+        int numDropped = (int)(Math.random() * 3) + 1;
+        objectArrayList.add(new ItemStack(this.item, numDropped));
 
         return objectArrayList;
     }
 
     @Override
     public MapCodec<? extends IGlobalLootModifier> codec() {
-        return null;
+        return CODEC;
     }
 
 }

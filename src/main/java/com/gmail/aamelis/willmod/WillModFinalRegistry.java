@@ -12,10 +12,10 @@ public class WillModFinalRegistry {
     public static final String MODID = "willmod";
 
     public WillModFinalRegistry(IEventBus modEventBus, ModContainer modContainer) {
-
         BlocksInit.register(modEventBus);
         ItemsInit.register(modEventBus);
         SoundsInit.register(modEventBus);
+        LootModifiersInit.register((modEventBus));
 
         modEventBus.addListener(this::addCreative);
 
