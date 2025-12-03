@@ -15,7 +15,6 @@ public class WillModFinalRegistry {
         BlocksInit.register(modEventBus);
         ItemsInit.register(modEventBus);
         SoundsInit.register(modEventBus);
-        LootModifiersInit.register((modEventBus));
 
         modEventBus.addListener(this::addCreative);
 
