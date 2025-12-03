@@ -1,6 +1,8 @@
 package com.gmail.aamelis.willmod.Blocks.entities;
 
 import com.gmail.aamelis.willmod.Registries.BlockEntitiesInit;
+import com.gmail.aamelis.willmod.Registries.ItemsInit;
+import com.gmail.aamelis.willmod.Screens.WillForgeMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
@@ -15,9 +17,9 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
@@ -39,6 +41,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 100;
+    private boolean isEnabled = true;
 
 
 
@@ -76,7 +79,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
 
     @Override
     public @Nullable AbstractContainerMenu createMenu(int i, Inventory inventory, Player player) {
-        return null;
+        return new WillForgeMenu(i, inventory, this, this.data);
     }
 
     public void drops() {
@@ -107,7 +110,35 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {
-        
+        ItemStack demoOutput = new ItemStack(ItemsInit.WILL_FACE_BLOCK_ITEM.get());
+
+        if (hasRecipe(demoOutput)) {
+            progress++;
+            setChanged(level, pos, state);
+
+            if (progress >= maxProgress) {
+                itemInventory.extractItem(INPUT_SLOT, 1, false);
+                itemInventory.setStackInSlot(OUTPUT_SLOT, new ItemStack(demoOutput.getItem(),
+                        itemInventory.getStackInSlot(OUTPUT_SLOT).getCount() + demoOutput.getCount()));
+
+            }
+
+        } else {
+            progress = 0;
+            maxProgress = 100;
+        }
+    }
+
+    private boolean hasRecipe(ItemStack desiredOutput) {
+        int demoCraftingAmount = 1;
+        return itemInventory.getStackInSlot(INPUT_SLOT).is(ItemsInit.WILL_SHARD) &&
+                outputIsAvailable(desiredOutput, demoCraftingAmount);
+    }
+
+    private boolean outputIsAvailable(ItemStack desiredOutput, int craftingAmount) {
+        return itemInventory.getStackInSlot(OUTPUT_SLOT).isEmpty() ||
+                (itemInventory.getStackInSlot(OUTPUT_SLOT).is(ItemsInit.WILL_FACE_BLOCK_ITEM) &&
+                        itemInventory.getStackInSlot(OUTPUT_SLOT).getCount() < itemInventory.getStackInSlot(OUTPUT_SLOT).getMaxStackSize() + craftingAmount);
     }
 
 

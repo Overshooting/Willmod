@@ -1,4 +1,4 @@
-package com.gmail.aamelis.willmod.Entities.custom.Mobs;
+package com.gmail.aamelis.willmod.Entities.Mobs.WIP;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
