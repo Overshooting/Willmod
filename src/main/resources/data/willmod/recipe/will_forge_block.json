@@ -1,9 +1,14 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
+  "group": "will_forge_block",
   "key": {
-    "A": "willmod:will_shard",
-    "B": "minecraft:blue_ice"
+    "A": {
+      "item": "willmod:will_shard"
+    },
+    "B": {
+      "item": "minecraft:blue_ice"
+    }
   },
   "pattern": [
     "AAA",
@@ -14,6 +19,4 @@
     "count": 1,
     "id": "willmod:will_forge_block"
   }
-
-
 }

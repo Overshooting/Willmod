@@ -2,8 +2,12 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": "willmod:will_shard",
-    "B": "minecraft:stick"
+    "A": {
+      "item": "willmod:will_shard"
+    },
+    "B": {
+      "item": "minecraft:stick"
+    }
   },
   "pattern": [
     "AAA",
@@ -14,6 +18,4 @@
     "count": 1,
     "id": "willmod:will_pickaxe"
   }
-
-
 }

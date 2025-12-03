@@ -7,7 +7,9 @@
   "item.willmod.will_pickaxe": "William Pickaxe",
 
   "block.willmod.williams_face_block": "William's Face",
-  "block.willmod.will_forge_block": "William Forge,",
+  "block.willmod.will_forge_block": "William Forge",
 
-  "container.willmod.will_forge": "William Forge,"
+  "container.willmod.will_forge": "William Forge",
+
+  "creativetab.willmod.all_items": "Willmod"
 }

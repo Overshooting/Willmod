@@ -15,21 +15,8 @@ public class WillModFinalRegistry {
         BlocksInit.register(modEventBus);
         ItemsInit.register(modEventBus);
         SoundsInit.register(modEventBus);
+        CreativeTabsInit.register(modEventBus);
+        BlockEntitiesInit.register(modEventBus);
 
-        modEventBus.addListener(this::addCreative);
-
-    }
-
-    private void addCreative(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS) {
-            event.accept(ItemsInit.WILL_FACE_BLOCK_ITEM.get());
-        }
-        if (event.getTabKey() == CreativeModeTabs.TOOLS_AND_UTILITIES) {
-            event.accept(ItemsInit.WILL_PICKAXE.get());
-            event.accept(ItemsInit.WILL_PHONE.get());
-        }
-        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ItemsInit.WILL_SHARD.get());
-        }
     }
 }
