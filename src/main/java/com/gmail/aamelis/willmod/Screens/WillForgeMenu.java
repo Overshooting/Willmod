@@ -42,7 +42,17 @@ public class WillForgeMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.addSlot(new SlotItemHandler(blockEntity.itemInventory, 0 , 54, 34));
-        this.addSlot(new SlotItemHandler(blockEntity.itemInventory, 1 , 104, 34));
+        this.addSlot(new SlotItemHandler(blockEntity.itemInventory, 1 , 104, 34) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return false;
+            }
+
+            @Override
+            public boolean mayPickup(Player player) {
+                return true;
+            }
+        });
 
         addDataSlots(data);
     }
@@ -62,7 +72,7 @@ public class WillForgeMenu extends AbstractContainerMenu {
     @Override
     public ItemStack quickMoveStack(Player playerIn, int pIndex) {
         Slot sourceSlot = slots.get(pIndex);
-        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY;  //EMPTY_ITEM
+        if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY; //EMPTY_ITEM
         ItemStack sourceStack = sourceSlot.getItem();
         ItemStack copyOfSourceStack = sourceStack.copy();
 
@@ -79,7 +89,8 @@ public class WillForgeMenu extends AbstractContainerMenu {
                 return ItemStack.EMPTY;
             }
         } else {
-            throw new ArgumentIndexOutOfBoundsException(pIndex);
+            System.out.println("Invalid Index: " + pIndex);
+            return ItemStack.EMPTY;
         }
         // If stack size == 0 (the entire stack was moved) set slot contents to null
         if (sourceStack.getCount() == 0) {

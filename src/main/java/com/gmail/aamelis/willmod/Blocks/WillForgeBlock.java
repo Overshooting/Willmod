@@ -74,10 +74,6 @@ public class WillForgeBlock extends BaseEntityBlock {
 
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
-        if (!level.isClientSide()) {
-            return null;
-        }
-
         return createTickerHelper(blockEntityType, BlockEntitiesInit.WILL_FORGE_BLOCK_ENTITY.get(),
                 (newLevel, pos, newState, blockEntity) -> blockEntity.tick(level, pos, state));
     }

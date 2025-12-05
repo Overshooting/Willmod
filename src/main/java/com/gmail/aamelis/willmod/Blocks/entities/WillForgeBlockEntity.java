@@ -17,6 +17,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -110,6 +111,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {
+
         ItemStack demoOutput = new ItemStack(ItemsInit.WILL_FACE_BLOCK_ITEM.get());
 
         if (hasRecipe(demoOutput)) {
@@ -121,6 +123,10 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
                 itemInventory.setStackInSlot(OUTPUT_SLOT, new ItemStack(demoOutput.getItem(),
                         itemInventory.getStackInSlot(OUTPUT_SLOT).getCount() + demoOutput.getCount()));
 
+                setChanged(level, pos, state);
+
+                progress = 0;
+                maxProgress = 100;
             }
 
         } else {
@@ -136,9 +142,10 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private boolean outputIsAvailable(ItemStack desiredOutput, int craftingAmount) {
-        return itemInventory.getStackInSlot(OUTPUT_SLOT).isEmpty() ||
-                (itemInventory.getStackInSlot(OUTPUT_SLOT).is(ItemsInit.WILL_FACE_BLOCK_ITEM) &&
-                        itemInventory.getStackInSlot(OUTPUT_SLOT).getCount() < itemInventory.getStackInSlot(OUTPUT_SLOT).getMaxStackSize() + craftingAmount);
+        ItemStack outputStack = itemInventory.getStackInSlot(OUTPUT_SLOT);
+
+        return outputStack.isEmpty() || (outputStack.is(ItemsInit.WILL_FACE_BLOCK_ITEM) &&
+                outputStack.getCount() + craftingAmount <= outputStack.getMaxStackSize());
     }
 
 
