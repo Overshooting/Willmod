@@ -1,6 +1,7 @@
 package com.gmail.aamelis.willmod.Blocks;
 
 import com.gmail.aamelis.willmod.Blocks.entities.WillForgeBlockEntity;
+import com.gmail.aamelis.willmod.Blocks.entities.WillForgeSupportBlockEntity;
 import com.gmail.aamelis.willmod.Registries.BlockEntitiesInit;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -9,9 +10,11 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
@@ -56,6 +59,27 @@ public class WillForgeBlock extends BaseEntityBlock {
         }
 
         super.onRemove(state, level, pos, newState, movedByPiston);
+    }
+
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+
+        WillForgeSupportBlockEntity thisBlockEntity = null;
+
+        if (level.getBlockState(pos.east()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.west()).getBlock() instanceof AirBlock) {
+            thisBlockEntity = (WillForgeSupportBlockEntity) level.getBlockEntity(pos.east());
+        } else if (level.getBlockState(pos.west()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.east()).getBlock() instanceof AirBlock) {
+            thisBlockEntity = (WillForgeSupportBlockEntity) level.getBlockEntity(pos.west());
+        } else if (level.getBlockState(pos.north()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.south()).getBlock() instanceof AirBlock) {
+            thisBlockEntity = (WillForgeSupportBlockEntity) level.getBlockEntity(pos.north());
+        } else if (level.getBlockState(pos.south()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.north()).getBlock() instanceof AirBlock) {
+            thisBlockEntity = (WillForgeSupportBlockEntity) level.getBlockEntity(pos.south());
+        }
+
+        if (thisBlockEntity != null) {
+            thisBlockEntity.setForgeBlockEntity((WillForgeBlockEntity)level.getBlockEntity(pos), level);
+        }
     }
 
     @Override

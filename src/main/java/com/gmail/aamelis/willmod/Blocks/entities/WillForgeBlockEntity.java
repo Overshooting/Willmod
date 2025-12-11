@@ -30,7 +30,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
-            if (!level.isClientSide()) {
+            if (level != null && !level.isClientSide()) {
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
         }
@@ -42,7 +42,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 100;
-    private boolean isEnabled = true;
+    private boolean isEnabled = false;
 
 
 
@@ -54,6 +54,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
                 return switch(i) {
                     case 0 -> WillForgeBlockEntity.this.progress;
                     case 1 -> WillForgeBlockEntity.this.maxProgress;
+                    case 2 -> WillForgeBlockEntity.this.encodeEnabledState();
                     default -> 0;
                 };
             }
@@ -63,6 +64,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
                 switch(i) {
                     case 0: WillForgeBlockEntity.this.progress = value;
                     case 1: WillForgeBlockEntity.this.maxProgress = value;
+                    case 2: WillForgeBlockEntity.this.decodeEnabledState(value);
                 }
             }
 
@@ -97,6 +99,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
         tag.put("inventory", itemInventory.serializeNBT(registries));
         tag.putInt("will_forge.progress", progress);
         tag.putInt("will_forge.max_progress", maxProgress);
+        tag.putInt("will_forge_is_enabled", encodeEnabledState());
 
         super.saveAdditional(tag, registries);
     }
@@ -108,30 +111,40 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
         itemInventory.deserializeNBT(registries, tag.getCompound("inventory"));
         progress = tag.getInt("will_forge.progress");
         maxProgress = tag.getInt("will_forge.max_progress");
+        decodeEnabledState(tag.getInt("will_forge_is_enabled"));
+    }
+
+    protected int encodeEnabledState() {
+        return isEnabled ? 1 : 0;
+    }
+
+    protected void decodeEnabledState(int i) {
+        setEnabledState(i == 1);
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {
+        if (isEnabled) {
+            ItemStack demoOutput = new ItemStack(ItemsInit.WILL_FACE_BLOCK_ITEM.get());
 
-        ItemStack demoOutput = new ItemStack(ItemsInit.WILL_FACE_BLOCK_ITEM.get());
-
-        if (hasRecipe(demoOutput)) {
-            progress++;
-            setChanged(level, pos, state);
-
-            if (progress >= maxProgress) {
-                itemInventory.extractItem(INPUT_SLOT, 1, false);
-                itemInventory.setStackInSlot(OUTPUT_SLOT, new ItemStack(demoOutput.getItem(),
-                        itemInventory.getStackInSlot(OUTPUT_SLOT).getCount() + demoOutput.getCount()));
-
+            if (hasRecipe(demoOutput)) {
+                progress++;
                 setChanged(level, pos, state);
 
+                if (progress >= maxProgress) {
+                    itemInventory.extractItem(INPUT_SLOT, 1, false);
+                    itemInventory.setStackInSlot(OUTPUT_SLOT, new ItemStack(demoOutput.getItem(),
+                            itemInventory.getStackInSlot(OUTPUT_SLOT).getCount() + demoOutput.getCount()));
+
+                    setChanged(level, pos, state);
+
+                    progress = 0;
+                    maxProgress = 100;
+                }
+
+            } else {
                 progress = 0;
                 maxProgress = 100;
             }
-
-        } else {
-            progress = 0;
-            maxProgress = 100;
         }
     }
 
@@ -146,6 +159,10 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
 
         return outputStack.isEmpty() || (outputStack.is(ItemsInit.WILL_FACE_BLOCK_ITEM) &&
                 outputStack.getCount() + craftingAmount <= outputStack.getMaxStackSize());
+    }
+
+    public void setEnabledState(boolean state) {
+        isEnabled = state;
     }
 
 

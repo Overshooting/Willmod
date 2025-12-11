@@ -22,6 +22,9 @@ public class ItemsInit {
     public static final DeferredItem<Item> WILL_FORGE_BLOCK_ITEM = ITEMS.register("will_forge_block",
             () -> createBlockItem(BlocksInit.WILL_FORGE_BLOCK));
 
+    public static final DeferredItem<Item> WILL_FORGE_SUPPORT_BLOCK_ITEM = ITEMS.register("will_forge_support_block",
+            () -> createBlockItem(BlocksInit.WILL_FORGE_SUPPORT_BLOCK));
+
     public static final DeferredItem<Item> WILL_SHARD = ITEMS.register("will_shard", WillShard::new);
 
     public static final DeferredItem<Item> WILL_PICKAXE = ITEMS.register("will_pickaxe", WillPickaxe::new);

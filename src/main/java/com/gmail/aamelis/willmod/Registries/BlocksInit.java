@@ -2,6 +2,7 @@ package com.gmail.aamelis.willmod.Registries;
 
 import com.gmail.aamelis.willmod.Blocks.WillFaceBlock;
 import com.gmail.aamelis.willmod.Blocks.WillForgeBlock;
+import com.gmail.aamelis.willmod.Blocks.WillForgeSupportBlock;
 import com.gmail.aamelis.willmod.WillModFinalRegistry;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
@@ -27,6 +28,14 @@ public class BlocksInit {
                     .lightLevel(level -> 7)
             )
     );
+
+    public static final DeferredBlock<BaseEntityBlock> WILL_FORGE_SUPPORT_BLOCK = BLOCKS.register("will_forge_support_block", () -> new WillForgeSupportBlock(
+            BlockBehaviour.Properties.of()
+                    .strength(0.5f, 1f)
+                    .friction(0.8f)
+                    .sound(SoundType.SCULK_SHRIEKER)
+                    .mapColor(MapColor.COLOR_CYAN)
+    ));
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

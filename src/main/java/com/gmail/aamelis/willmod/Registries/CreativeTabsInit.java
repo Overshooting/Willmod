@@ -37,6 +37,7 @@ public class CreativeTabsInit {
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(BlocksInit.WILL_FACE_BLOCK);
                         output.accept(BlocksInit.WILL_FORGE_BLOCK);
+                        output.accept(BlocksInit.WILL_FORGE_SUPPORT_BLOCK);
                     }).build());
 
     public static void register(IEventBus eventBus) {
