@@ -1,5 +1,6 @@
 package com.gmail.aamelis.willmod.Blocks;
 
+import com.gmail.aamelis.willmod.Blocks.entities.WillForgeBlockEntity;
 import com.gmail.aamelis.willmod.Blocks.entities.WillForgeSupportBlockEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -40,14 +41,29 @@ public class WillForgeSupportBlock extends BaseEntityBlock {
 
     @Override
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
-        if (state.getBlock() != newState.getBlock()) {
-            WillForgeSupportBlockEntity blockEntity = (WillForgeSupportBlockEntity) level.getBlockEntity(pos);
-            if (blockEntity != null) {
-                blockEntity.fireRemoveState(level);
+        super.onRemove(state, level, pos, newState, movedByPiston);
+
+        runForgeCheck(level, pos);
+    }
+
+    @Override
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        if (level.getBlockState(pos.north()).getBlock() instanceof WillForgeSupportBlock || level.getBlockState(pos.south()).getBlock() instanceof WillForgeSupportBlock || level.getBlockState(pos.east()).getBlock() instanceof WillForgeSupportBlock) {
+            runForgeCheck(level, pos);
+        }
+    }
+
+    private void runForgeCheck(Level level, BlockPos pos) {
+        for (int x = pos.getX() - 2; x <= pos.getX() + 2; x++) {
+            for (int y = pos.getY() - 1; y <= pos.getY() + 1; y++) {
+                for (int z = pos.getZ() - 2; z <= pos.getZ() + 2; z++) {
+                    if (level.getBlockEntity(new BlockPos(x, y, z)) instanceof WillForgeBlockEntity thisForgeEntity) {
+                        thisForgeEntity.fireCheckState(level);
+                    }
+                }
             }
         }
-
-        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
     @Override

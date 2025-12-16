@@ -65,20 +65,8 @@ public class WillForgeBlock extends BaseEntityBlock {
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
 
-        WillForgeSupportBlockEntity thisBlockEntity = null;
-
-        if (level.getBlockState(pos.east()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.west()).getBlock() instanceof AirBlock) {
-            thisBlockEntity = (WillForgeSupportBlockEntity) level.getBlockEntity(pos.east());
-        } else if (level.getBlockState(pos.west()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.east()).getBlock() instanceof AirBlock) {
-            thisBlockEntity = (WillForgeSupportBlockEntity) level.getBlockEntity(pos.west());
-        } else if (level.getBlockState(pos.north()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.south()).getBlock() instanceof AirBlock) {
-            thisBlockEntity = (WillForgeSupportBlockEntity) level.getBlockEntity(pos.north());
-        } else if (level.getBlockState(pos.south()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.north()).getBlock() instanceof AirBlock) {
-            thisBlockEntity = (WillForgeSupportBlockEntity) level.getBlockEntity(pos.south());
-        }
-
-        if (thisBlockEntity != null) {
-            thisBlockEntity.setForgeBlockEntity((WillForgeBlockEntity)level.getBlockEntity(pos), level);
+        if (level.getBlockEntity(pos) instanceof WillForgeBlockEntity thisEntity) {
+            thisEntity.fireCheckState(level);
         }
     }
 

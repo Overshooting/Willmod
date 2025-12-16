@@ -1,5 +1,6 @@
 package com.gmail.aamelis.willmod.Blocks.entities;
 
+import com.gmail.aamelis.willmod.Blocks.WillForgeSupportBlock;
 import com.gmail.aamelis.willmod.Registries.BlockEntitiesInit;
 import com.gmail.aamelis.willmod.Registries.ItemsInit;
 import com.gmail.aamelis.willmod.Screens.WillForgeMenu;
@@ -20,6 +21,7 @@ import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -34,6 +36,8 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
                 level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
             }
         }
+
+
     };
 
     private static final int INPUT_SLOT = 0;
@@ -54,7 +58,6 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
                 return switch(i) {
                     case 0 -> WillForgeBlockEntity.this.progress;
                     case 1 -> WillForgeBlockEntity.this.maxProgress;
-                    case 2 -> WillForgeBlockEntity.this.encodeEnabledState();
                     default -> 0;
                 };
             }
@@ -64,7 +67,6 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
                 switch(i) {
                     case 0: WillForgeBlockEntity.this.progress = value;
                     case 1: WillForgeBlockEntity.this.maxProgress = value;
-                    case 2: WillForgeBlockEntity.this.decodeEnabledState(value);
                 }
             }
 
@@ -99,7 +101,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
         tag.put("inventory", itemInventory.serializeNBT(registries));
         tag.putInt("will_forge.progress", progress);
         tag.putInt("will_forge.max_progress", maxProgress);
-        tag.putInt("will_forge_is_enabled", encodeEnabledState());
+        tag.putBoolean("will_forge.isEnabled", isEnabled);
 
         super.saveAdditional(tag, registries);
     }
@@ -111,7 +113,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
         itemInventory.deserializeNBT(registries, tag.getCompound("inventory"));
         progress = tag.getInt("will_forge.progress");
         maxProgress = tag.getInt("will_forge.max_progress");
-        decodeEnabledState(tag.getInt("will_forge_is_enabled"));
+        isEnabled = tag.getBoolean("will_forge.isEnabled");
     }
 
     protected int encodeEnabledState() {
@@ -119,11 +121,15 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     protected void decodeEnabledState(int i) {
-        setEnabledState(i == 1);
+        isEnabled = i == 1;
+    }
+
+    private void setEnabledState(boolean b) {
+        isEnabled = b;
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {
-        if (isEnabled) {
+        if (isEnabled && !level.isClientSide()) {
             ItemStack demoOutput = new ItemStack(ItemsInit.WILL_FACE_BLOCK_ITEM.get());
 
             if (hasRecipe(demoOutput)) {
@@ -161,10 +167,63 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
                 outputStack.getCount() + craftingAmount <= outputStack.getMaxStackSize());
     }
 
-    public void setEnabledState(boolean state) {
-        isEnabled = state;
+    public void setEnabledState(boolean enabled, Level level, BlockPos pos, BlockState state) {
+        if (!level.isClientSide() && level != null && isEnabled != enabled) {
+            System.out.println("Setting isEnabled to " + enabled + ", currently " + isEnabled);
+
+            isEnabled = enabled;
+            setChanged(level, pos, state);
+        }
     }
 
+    public boolean getEnabledState() {
+        return isEnabled;
+    }
+
+    public BlockPos findCenterBlock(Level level, BlockPos pos) {
+        BlockPos centerBlockPos = null;
+
+        if (level.getBlockState(pos.east()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.west()).getBlock() instanceof AirBlock) {
+            centerBlockPos = pos.east();
+        } else if (level.getBlockState(pos.west()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.east()).getBlock() instanceof AirBlock) {
+            centerBlockPos = pos.west();
+        } else if (level.getBlockState(pos.north()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.south()).getBlock() instanceof AirBlock) {
+            centerBlockPos = pos.north();
+        } else if (level.getBlockState(pos.south()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.north()).getBlock() instanceof AirBlock) {
+            centerBlockPos = pos.south();
+        }
+
+        return centerBlockPos;
+    }
+
+    public void fireCheckState(Level level) {
+        if (!level.isClientSide()) {
+            int supports = 0;
+            BlockPos center = findCenterBlock(level, getBlockPos());
+            if (center == null) return;
+
+            for (int x = center.getX() - 1; x <= center.getX() + 1; x++) {
+                for (int y = center.getY() - 1; y <= center.getY() + 1; y++) {
+                    for (int z = center.getZ() - 1; z <= center.getZ() + 1; z++) {
+                        if (level.getBlockState(new BlockPos(x, y, z)).getBlock() instanceof WillForgeSupportBlock) {
+                            supports++;
+                        }
+                    }
+                }
+            }
+
+            setEnabledState(supports == 25, level, getBlockPos(), getBlockState());
+        }
+    }
+
+    @Override
+    public void onLoad() {
+        super.onLoad();
+
+        if (!level.isClientSide()) {
+            fireCheckState(level);
+        }
+    }
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {

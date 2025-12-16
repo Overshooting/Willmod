@@ -1,7 +1,5 @@
 package com.gmail.aamelis.willmod.Blocks.entities;
 
-import com.gmail.aamelis.willmod.Blocks.WillForgeBlock;
-import com.gmail.aamelis.willmod.Blocks.WillForgeSupportBlock;
 import com.gmail.aamelis.willmod.Registries.BlockEntitiesInit;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -50,7 +48,7 @@ public class WillForgeSupportBlockEntity extends BlockEntity {
     }
 
     public void fireCheckState(Level level) {
-        if (centerBlockEntity != null) {
+        if (centerBlockEntity != null && forgeBlockEntity != null) {
             surroundingSupportBlocks = 0;
 
             for (int x = getBlockPos().getX() - 1; x <= getBlockPos().getX() + 1; x++) {
@@ -60,13 +58,13 @@ public class WillForgeSupportBlockEntity extends BlockEntity {
                             BlockEntity blockEntityCheck = level.getBlockEntity(new BlockPos(x, y, z));
 
                             if (blockEntityCheck instanceof WillForgeSupportBlockEntity thisBlockEntity) {
-                                System.out.println("SupportEntityFound Incrementing SurroundingSupports");
+                                System.out.println("SupportEntityFound at " + x + ", " + y + ", " + z + " Incrementing SurroundingSupports to " + (surroundingSupportBlocks + 1));
 
                                 surroundingSupportBlocks++;
                                 thisBlockEntity.setCenterBlockEntity(centerBlockEntity);
                             }
                         } else {
-                            System.out.println("ConditionsNotMet Simples: " + x + ", " + y + ", " + z + "Pos: " + getBlockPos().getX() + ", " + getBlockPos().getY() + ", " + getBlockPos().getZ() + " && blockEntityMatch: " + (level.getBlockEntity(new BlockPos(x, y, z)) instanceof WillForgeSupportBlockEntity thisBlockEntity));
+                            System.out.println("ConditionsNotMet Simple: " + x + ", " + y + ", " + z + " Pos: " + getBlockPos().getX() + ", " + getBlockPos().getY() + ", " + getBlockPos().getZ() + " && blockEntityMatch: " + (level.getBlockEntity(new BlockPos(x, y, z)) instanceof WillForgeSupportBlockEntity thisBlockEntity));
                         }
                     }
                 }
@@ -74,10 +72,12 @@ public class WillForgeSupportBlockEntity extends BlockEntity {
 
             System.out.println("Level Found. Surrounding Support Blocks of centerblock at " + getBlockPos().getX() + ", " + getBlockPos().getY() + ", " + getBlockPos().getZ() + ": " + surroundingSupportBlocks);
 
-            forgeBlockEntity.setEnabledState(surroundingSupportBlocks == 25);
+            System.out.println("Setting forge block enabled to " + (surroundingSupportBlocks == 25));
+            forgeBlockEntity.setEnabledState(surroundingSupportBlocks == 25, level, forgeBlockEntity.getBlockPos(), forgeBlockEntity.getBlockState());
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+        } else {
+            System.out.println("NotACenterBlock");
         }
-        System.out.println("NotACenterBlock");
     }
 
     public void setForgeBlockEntity(WillForgeBlockEntity newForgeBlockEntity, Level level) {
@@ -90,17 +90,8 @@ public class WillForgeSupportBlockEntity extends BlockEntity {
         return centerBlockEntity != null;
     }
 
-    public void blockBroken(Level level) {
-        if (surroundingSupportBlocks > 0) {
-            surroundingSupportBlocks--;
-            fireCheckState(level);
-        }
-    }
-
-    public void fireRemoveState(Level level) {
-        if (centerBlockEntity != null) {
-            centerBlockEntity.blockBroken(level);
-        }
+    public WillForgeSupportBlockEntity getCenterBlockEntity() {
+        return centerBlockEntity;
     }
 
     public void setCenterBlockEntity(WillForgeSupportBlockEntity thisCenterBlockEntity) {
