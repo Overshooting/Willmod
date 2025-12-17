@@ -1,6 +1,5 @@
 package com.gmail.aamelis.willmod.Blocks.entities;
 
-import com.gmail.aamelis.willmod.Blocks.WillForgeSupportBlock;
 import com.gmail.aamelis.willmod.Registries.BlockEntitiesInit;
 import com.gmail.aamelis.willmod.Registries.ItemsInit;
 import com.gmail.aamelis.willmod.Screens.WillForgeMenu;
@@ -18,10 +17,8 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
@@ -159,7 +156,6 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
 
     public void setEnabledState(boolean enabled) {
         if (level != null && !level.isClientSide() && isEnabled != enabled) {
-            System.out.println("Setting isEnabled to " + enabled + ", currently " + isEnabled);
 
             isEnabled = enabled;
             if (isEnabled) {
@@ -171,28 +167,8 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
         }
     }
 
-    public boolean getEnabledState() {
-        return isEnabled;
-    }
-
     public boolean hasCoreBlock() {
         return hasCoreBlock;
-    }
-
-    public BlockPos findCenterBlock(Level level, BlockPos pos) {
-        BlockPos centerBlockPos = null;
-
-        if (level.getBlockState(pos.east()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.west()).getBlock() instanceof AirBlock) {
-            centerBlockPos = pos.east();
-        } else if (level.getBlockState(pos.west()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.east()).getBlock() instanceof AirBlock) {
-            centerBlockPos = pos.west();
-        } else if (level.getBlockState(pos.north()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.south()).getBlock() instanceof AirBlock) {
-            centerBlockPos = pos.north();
-        } else if (level.getBlockState(pos.south()).getBlock() instanceof WillForgeSupportBlock && level.getBlockState(pos.north()).getBlock() instanceof AirBlock) {
-            centerBlockPos = pos.south();
-        }
-
-        return centerBlockPos;
     }
 
     @Override

@@ -35,7 +35,7 @@ public class BlocksInit {
     public static final DeferredBlock<BaseEntityBlock> WILL_FORGE_CORE_BLOCK = BLOCKS.register("will_forge_core_block", () -> new WillForgeCoreBlock(
             BlockBehaviour.Properties.of()
                     .strength(1f, 1f)
-                    .friction(0.1f)
+                    .friction(0.7f)
                     .sound(SoundType.ANCIENT_DEBRIS)
                     .mapColor(MapColor.COLOR_BLUE)
             )

@@ -1,6 +1,5 @@
 package com.gmail.aamelis.willmod.Blocks;
 
-import com.gmail.aamelis.willmod.Blocks.entities.WillForgeBlockEntity;
 import com.gmail.aamelis.willmod.Blocks.entities.WillForgeCoreBlockEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;

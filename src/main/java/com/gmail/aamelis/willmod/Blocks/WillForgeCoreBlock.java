@@ -36,7 +36,7 @@ public class WillForgeCoreBlock extends BaseEntityBlock {
     protected void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
         WillForgeCoreBlockEntity thisBlockEntity = (WillForgeCoreBlockEntity) level.getBlockEntity(pos);
 
-        if (thisBlockEntity != null && thisBlockEntity.hasForge()) thisBlockEntity.getForgeEntity().setEnabledState(false);
+        if (thisBlockEntity != null && thisBlockEntity.hasForge() && thisBlockEntity.getForgeEntity() != null) thisBlockEntity.getForgeEntity().setEnabledState(false);
 
         super.onRemove(state, level, pos, newState, movedByPiston);
     }

@@ -31,21 +31,19 @@ public class WillForgeCoreBlockEntity extends BlockEntity {
             forgeZ = newZ;
             setChanged(level, getBlockPos(), getBlockState());
             runSupportsCheck();
-        } else {
-            System.out.println("Level not found");
         }
     }
 
     public WillForgeBlockEntity getForgeEntity() {
-        return forgeX == Integer.MAX_VALUE && level != null ? null : (WillForgeBlockEntity) level.getBlockEntity(new BlockPos(forgeX, forgeY, forgeZ));
+        return forgeX == Integer.MAX_VALUE || level == null ? null : (WillForgeBlockEntity) level.getBlockEntity(new BlockPos(forgeX, forgeY, forgeZ));
     }
 
     public boolean hasForge() {
-        return forgeX == Integer.MAX_VALUE;
+        return forgeX != Integer.MAX_VALUE;
     }
 
     public void runSupportsCheck() {
-        if (level != null && !level.isClientSide() && forgeX != Integer.MAX_VALUE) return;
+        if (level == null || level.isClientSide() || forgeX == Integer.MAX_VALUE) return;
         int thisBlockX = getBlockPos().getX(), thisBlockY = getBlockPos().getY(), thisBlockZ = getBlockPos().getZ(), supportBlocksCount = 0;
 
         for (int x = thisBlockX - 1; x <= thisBlockX + 1; x++) {
@@ -60,7 +58,8 @@ public class WillForgeCoreBlockEntity extends BlockEntity {
 
         if (getForgeEntity() != null && supportBlocksCount == 25) {
             getForgeEntity().setEnabledState(true);
-        } else if (getForgeEntity() != null){
+        } else if (getForgeEntity() == null) {
+        } else if (supportBlocksCount != 25) {
             getForgeEntity().setEnabledState(false);
         }
     }

@@ -4,19 +4,16 @@
   "group": "will_forge_block",
   "key": {
     "A": {
-      "item": "willmod:will_shard"
+      "item": "willmod:williams_face_block"
     },
     "B": {
       "item": "minecraft:blue_ice"
-    },
-    "C": {
-      "item": "minecraft:soul_campfire"
     }
   },
   "pattern": [
-    "AAA",
-    "ABA",
-    "ACA"
+    "BBB",
+    "BAB",
+    "BBB"
   ],
   "result": {
     "count": 1,
