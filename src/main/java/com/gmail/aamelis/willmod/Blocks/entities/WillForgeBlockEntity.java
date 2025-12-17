@@ -46,7 +46,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
     protected final ContainerData data;
     private int progress = 0;
     private int maxProgress = 100;
-    private boolean isEnabled = false;
+    private boolean isEnabled = false, hasCoreBlock = false;
 
 
 
@@ -102,6 +102,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
         tag.putInt("will_forge.progress", progress);
         tag.putInt("will_forge.max_progress", maxProgress);
         tag.putBoolean("will_forge.isEnabled", isEnabled);
+        tag.putBoolean("will_forge.hasCoreBlock", hasCoreBlock);
 
         super.saveAdditional(tag, registries);
     }
@@ -114,18 +115,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
         progress = tag.getInt("will_forge.progress");
         maxProgress = tag.getInt("will_forge.max_progress");
         isEnabled = tag.getBoolean("will_forge.isEnabled");
-    }
-
-    protected int encodeEnabledState() {
-        return isEnabled ? 1 : 0;
-    }
-
-    protected void decodeEnabledState(int i) {
-        isEnabled = i == 1;
-    }
-
-    private void setEnabledState(boolean b) {
-        isEnabled = b;
+        hasCoreBlock = isEnabled && tag.getBoolean("will_forge.hasCoreBlock");
     }
 
     public void tick(Level level, BlockPos pos, BlockState state) {
@@ -167,17 +157,26 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
                 outputStack.getCount() + craftingAmount <= outputStack.getMaxStackSize());
     }
 
-    public void setEnabledState(boolean enabled, Level level, BlockPos pos, BlockState state) {
-        if (!level.isClientSide() && level != null && isEnabled != enabled) {
+    public void setEnabledState(boolean enabled) {
+        if (level != null && !level.isClientSide() && isEnabled != enabled) {
             System.out.println("Setting isEnabled to " + enabled + ", currently " + isEnabled);
 
             isEnabled = enabled;
-            setChanged(level, pos, state);
+            if (isEnabled) {
+                hasCoreBlock = true;
+            } else {
+                hasCoreBlock = false;
+            }
+            setChanged(level, getBlockPos(), getBlockState());
         }
     }
 
     public boolean getEnabledState() {
         return isEnabled;
+    }
+
+    public boolean hasCoreBlock() {
+        return hasCoreBlock;
     }
 
     public BlockPos findCenterBlock(Level level, BlockPos pos) {
@@ -194,35 +193,6 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
         }
 
         return centerBlockPos;
-    }
-
-    public void fireCheckState(Level level) {
-        if (!level.isClientSide()) {
-            int supports = 0;
-            BlockPos center = findCenterBlock(level, getBlockPos());
-            if (center == null) return;
-
-            for (int x = center.getX() - 1; x <= center.getX() + 1; x++) {
-                for (int y = center.getY() - 1; y <= center.getY() + 1; y++) {
-                    for (int z = center.getZ() - 1; z <= center.getZ() + 1; z++) {
-                        if (level.getBlockState(new BlockPos(x, y, z)).getBlock() instanceof WillForgeSupportBlock) {
-                            supports++;
-                        }
-                    }
-                }
-            }
-
-            setEnabledState(supports == 25, level, getBlockPos(), getBlockState());
-        }
-    }
-
-    @Override
-    public void onLoad() {
-        super.onLoad();
-
-        if (!level.isClientSide()) {
-            fireCheckState(level);
-        }
     }
 
     @Override

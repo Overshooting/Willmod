@@ -1,7 +1,7 @@
 package com.gmail.aamelis.willmod.Blocks;
 
 import com.gmail.aamelis.willmod.Blocks.entities.WillForgeBlockEntity;
-import com.gmail.aamelis.willmod.Blocks.entities.WillForgeSupportBlockEntity;
+import com.gmail.aamelis.willmod.Blocks.entities.WillForgeCoreBlockEntity;
 import com.gmail.aamelis.willmod.Registries.BlockEntitiesInit;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -14,16 +14,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.AirBlock;
 import net.minecraft.world.level.block.BaseEntityBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 
@@ -55,6 +52,9 @@ public class WillForgeBlock extends BaseEntityBlock {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof WillForgeBlockEntity willForgeBlockEntity) {
                 willForgeBlockEntity.drops();
+                if (willForgeBlockEntity.hasCoreBlock()) {
+                    checkForCoreBlock(level, pos, true);
+                }
             }
         }
 
@@ -65,9 +65,7 @@ public class WillForgeBlock extends BaseEntityBlock {
     public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         super.setPlacedBy(level, pos, state, placer, stack);
 
-        if (level.getBlockEntity(pos) instanceof WillForgeBlockEntity thisEntity) {
-            thisEntity.fireCheckState(level);
-        }
+        checkForCoreBlock(level, pos, false);
     }
 
     @Override
@@ -89,4 +87,35 @@ public class WillForgeBlock extends BaseEntityBlock {
         return createTickerHelper(blockEntityType, BlockEntitiesInit.WILL_FORGE_BLOCK_ENTITY.get(),
                 (newLevel, pos, newState, blockEntity) -> blockEntity.tick(level, pos, state));
     }
+
+    @Override
+    protected void neighborChanged(BlockState state, Level level, BlockPos pos, Block neighborBlock, BlockPos neighborPos, boolean movedByPiston) {
+        super.neighborChanged(state, level, pos, neighborBlock, neighborPos, movedByPiston);
+
+        checkForCoreBlock(level, pos, false);
+    }
+
+    private void checkForCoreBlock(Level level, BlockPos pos, boolean removeSignature) {
+        int xFlag;
+        if (removeSignature) {
+            xFlag = Integer.MAX_VALUE;
+        } else {
+            xFlag = pos.getX();
+        }
+
+        if (level.getBlockEntity(pos.east()) instanceof WillForgeCoreBlockEntity coreBlockEntity) {
+            coreBlockEntity.setForgePos(xFlag, pos.getY(), pos.getZ());
+            coreBlockEntity.runSupportsCheck();
+        } else if (level.getBlockEntity(pos.west()) instanceof WillForgeCoreBlockEntity coreBlockEntity) {
+            coreBlockEntity.setForgePos(xFlag, pos.getY(), pos.getZ());
+            coreBlockEntity.runSupportsCheck();
+        } else if (level.getBlockEntity(pos.north()) instanceof WillForgeCoreBlockEntity coreBlockEntity) {
+            coreBlockEntity.setForgePos(xFlag, pos.getY(), pos.getZ());
+            coreBlockEntity.runSupportsCheck();
+        } else if (level.getBlockEntity(pos.south()) instanceof WillForgeCoreBlockEntity coreBlockEntity) {
+            coreBlockEntity.setForgePos(xFlag, pos.getY(), pos.getZ());
+            coreBlockEntity.runSupportsCheck();
+        }
+    }
+
 }
