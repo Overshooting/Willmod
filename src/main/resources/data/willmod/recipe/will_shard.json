@@ -1,0 +1,9 @@
+{
+  "type:": "willmod:will_forge",
+  "ingredient": {
+    "item": "minecraft:ice"
+  },
+  "result": {
+    "id": "willmod:will_shard"
+  }
+}

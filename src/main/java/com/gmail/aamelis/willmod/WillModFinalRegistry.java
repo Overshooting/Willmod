@@ -21,6 +21,7 @@ public class WillModFinalRegistry {
         CreativeTabsInit.register(modEventBus);
         BlockEntitiesInit.register(modEventBus);
         MenuTypesInit.register(modEventBus);
+        RecipesInit.register(modEventBus);
 
     }
 

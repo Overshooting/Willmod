@@ -1,7 +1,10 @@
 package com.gmail.aamelis.willmod.Blocks.entities;
 
+import com.gmail.aamelis.willmod.Recipes.WillForgeRecipe;
+import com.gmail.aamelis.willmod.Recipes.WillForgeRecipeInput;
 import com.gmail.aamelis.willmod.Registries.BlockEntitiesInit;
 import com.gmail.aamelis.willmod.Registries.ItemsInit;
+import com.gmail.aamelis.willmod.Registries.RecipesInit;
 import com.gmail.aamelis.willmod.Screens.WillForgeMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -18,11 +21,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
     public final ItemStackHandler itemInventory =  new ItemStackHandler(2) {
@@ -117,16 +123,12 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
 
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (isEnabled && !level.isClientSide()) {
-            ItemStack demoOutput = new ItemStack(ItemsInit.WILL_FACE_BLOCK_ITEM.get());
-
-            if (hasRecipe(demoOutput)) {
+            if (hasRecipe()) {
                 progress++;
                 setChanged(level, pos, state);
 
                 if (progress >= maxProgress) {
-                    itemInventory.extractItem(INPUT_SLOT, 1, false);
-                    itemInventory.setStackInSlot(OUTPUT_SLOT, new ItemStack(demoOutput.getItem(),
-                            itemInventory.getStackInSlot(OUTPUT_SLOT).getCount() + demoOutput.getCount()));
+                    craftItem();
 
                     setChanged(level, pos, state);
 
@@ -141,16 +143,31 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
         }
     }
 
-    private boolean hasRecipe(ItemStack desiredOutput) {
-        int demoCraftingAmount = 1;
-        return itemInventory.getStackInSlot(INPUT_SLOT).is(ItemsInit.WILL_SHARD) &&
-                outputIsAvailable(desiredOutput, demoCraftingAmount);
+    private void craftItem() {
+        Optional<RecipeHolder<WillForgeRecipe>> recipe = getCurrentRecipe();
+        ItemStack output = recipe.get().value().output();
+
+        itemInventory.extractItem(INPUT_SLOT, recipe.get().value().inputItem().getItems()[0].getCount(), false);
+        itemInventory.setStackInSlot(OUTPUT_SLOT, new ItemStack(output.getItem(),
+                itemInventory.getStackInSlot(OUTPUT_SLOT).getCount() + output.getCount()));
+    }
+
+    private boolean hasRecipe() {
+        Optional<RecipeHolder<WillForgeRecipe>> recipe = getCurrentRecipe();
+        if (recipe.isEmpty()) return false;
+
+        ItemStack output = recipe.get().value().output();
+        return outputIsAvailable(output, output.getCount());
+    }
+
+    private Optional<RecipeHolder<WillForgeRecipe>> getCurrentRecipe() {
+        return this.level.getRecipeManager().getRecipeFor(RecipesInit.WILL_FORGE_TYPE.get(), new WillForgeRecipeInput(itemInventory.getStackInSlot(INPUT_SLOT)), level);
     }
 
     private boolean outputIsAvailable(ItemStack desiredOutput, int craftingAmount) {
         ItemStack outputStack = itemInventory.getStackInSlot(OUTPUT_SLOT);
 
-        return outputStack.isEmpty() || (outputStack.is(ItemsInit.WILL_FACE_BLOCK_ITEM) &&
+        return outputStack.isEmpty() || (outputStack.is(desiredOutput.getItem()) &&
                 outputStack.getCount() + craftingAmount <= outputStack.getMaxStackSize());
     }
 
