@@ -24,6 +24,10 @@ public class CreativeTabsInit {
                         output.accept(ItemsInit.WILL_PHONE);
                         output.accept(ItemsInit.WILL_PICKAXE);
                         output.accept(ItemsInit.WILL_SHARD);
+                        output.accept(ItemsInit.EXTINGUISHED_FROST_CORE);
+                        output.accept(ItemsInit.ACTIVATED_FROST_CORE);
+                        output.accept(ItemsInit.CHILLING_AMALGAM);
+                        output.accept(ItemsInit.WILL_INGOT);
 
                     }).build());
 
@@ -37,6 +41,7 @@ public class CreativeTabsInit {
                         output.accept(BlocksInit.WILL_FORGE_BLOCK);
                         output.accept(BlocksInit.WILL_FORGE_SUPPORT_BLOCK);
                         output.accept(BlocksInit.WILL_FORGE_CORE_BLOCK);
+
                     }).build());
 
     public static void register(IEventBus eventBus) {

@@ -27,8 +27,6 @@ public record WillForgeRecipe(Ingredient inputItem, ItemStack output) implements
     public boolean matches(WillForgeRecipeInput willForgeRecipeInput, Level level) {
         if (level.isClientSide()) return false;
 
-
-
         return inputItem.test(willForgeRecipeInput.getItem(0));
     }
 

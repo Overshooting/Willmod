@@ -25,7 +25,11 @@ public class WillForgeCoreBlockEntity extends BlockEntity {
     }
 
     public void setForgePos(int newX, int newY, int newZ) {
-        if (level != null && !level.isClientSide() && level.getBlockEntity(new BlockPos(newX, newY, newZ)) instanceof WillForgeBlockEntity) {
+        if (newX == Integer.MAX_VALUE) {
+            forgeX = newX;
+            forgeY = newY;
+            forgeZ = newZ;
+        } else if (level != null && !level.isClientSide() && level.getBlockEntity(new BlockPos(newX, newY, newZ)) instanceof WillForgeBlockEntity) {
             forgeX = newX;
             forgeY = newY;
             forgeZ = newZ;

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "will_forge_core_block",
+  "key": {
+    "A": {
+      "item": "willmod:will_shard"
+    },
+    "B": {
+      "item": "minecraft:blue_ice"
+    },
+    "C": {
+      "item": "willmod:activated_frost_core"
+    }
+  },
+  "pattern": [
+    "BAB",
+    "BCB",
+    "BAB"
+  ],
+  "result": {
+    "count": 1,
+    "id": "willmod:will_forge_core_block"
+  }
+}

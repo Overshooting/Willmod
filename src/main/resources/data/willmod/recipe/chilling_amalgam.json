@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "willmod:will_shard"
+    },
+    "B": {
+      "item": "minecraft:diamond"
+    },
+    "C": {
+      "item": "minecraft:ice"
+    }
+  },
+  "pattern": [
+    "AA ",
+    "CB ",
+    "   "
+  ],
+  "result": {
+    "count": 1,
+    "id": "willmod:chilling_amalgam"
+  }
+}

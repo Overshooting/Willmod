@@ -3,7 +3,6 @@ package com.gmail.aamelis.willmod.Blocks.entities;
 import com.gmail.aamelis.willmod.Recipes.WillForgeRecipe;
 import com.gmail.aamelis.willmod.Recipes.WillForgeRecipeInput;
 import com.gmail.aamelis.willmod.Registries.BlockEntitiesInit;
-import com.gmail.aamelis.willmod.Registries.ItemsInit;
 import com.gmail.aamelis.willmod.Registries.RecipesInit;
 import com.gmail.aamelis.willmod.Screens.WillForgeMenu;
 import net.minecraft.core.BlockPos;
@@ -147,7 +146,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
         Optional<RecipeHolder<WillForgeRecipe>> recipe = getCurrentRecipe();
         ItemStack output = recipe.get().value().output();
 
-        itemInventory.extractItem(INPUT_SLOT, recipe.get().value().inputItem().getItems()[0].getCount(), false);
+        itemInventory.extractItem(INPUT_SLOT, 1, false);
         itemInventory.setStackInSlot(OUTPUT_SLOT, new ItemStack(output.getItem(),
                 itemInventory.getStackInSlot(OUTPUT_SLOT).getCount() + output.getCount()));
     }
@@ -161,7 +160,8 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private Optional<RecipeHolder<WillForgeRecipe>> getCurrentRecipe() {
-        return this.level.getRecipeManager().getRecipeFor(RecipesInit.WILL_FORGE_TYPE.get(), new WillForgeRecipeInput(itemInventory.getStackInSlot(INPUT_SLOT)), level);
+        if (this.level != null) return this.level.getRecipeManager().getRecipeFor(RecipesInit.WILL_FORGE_TYPE.get(), new WillForgeRecipeInput(itemInventory.getStackInSlot(INPUT_SLOT)), level);
+        return Optional.empty();
     }
 
     private boolean outputIsAvailable(ItemStack desiredOutput, int craftingAmount) {
@@ -175,11 +175,7 @@ public class WillForgeBlockEntity extends BlockEntity implements MenuProvider {
         if (level != null && !level.isClientSide() && isEnabled != enabled) {
 
             isEnabled = enabled;
-            if (isEnabled) {
-                hasCoreBlock = true;
-            } else {
-                hasCoreBlock = false;
-            }
+            hasCoreBlock = isEnabled;
             setChanged(level, getBlockPos(), getBlockState());
         }
     }

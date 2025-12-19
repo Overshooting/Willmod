@@ -1,8 +1,6 @@
 package com.gmail.aamelis.willmod.Registries;
 
-import com.gmail.aamelis.willmod.Items.WillPhone;
-import com.gmail.aamelis.willmod.Items.WillPickaxe;
-import com.gmail.aamelis.willmod.Items.WillShard;
+import com.gmail.aamelis.willmod.Items.*;
 import com.gmail.aamelis.willmod.WillModFinalRegistry;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -33,6 +31,14 @@ public class ItemsInit {
     public static final DeferredItem<Item> WILL_PICKAXE = ITEMS.register("will_pickaxe", WillPickaxe::new);
 
     public static final DeferredItem<Item> WILL_PHONE = ITEMS.register("will_phone", WillPhone::new);
+
+    public static final DeferredItem<Item> EXTINGUISHED_FROST_CORE = ITEMS.register("extinguished_frost_core", ExtinguishedFrostCore::new);
+
+    public static final DeferredItem<Item> ACTIVATED_FROST_CORE = ITEMS.register("activated_frost_core", ActivatedFrostCore::new);
+
+    public static final DeferredItem<Item> CHILLING_AMALGAM = ITEMS.register("chilling_amalgam", ChillingAmalgam::new);
+
+    public static final DeferredItem<Item> WILL_INGOT = ITEMS.register("will_ingot", WillIngot::new);
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

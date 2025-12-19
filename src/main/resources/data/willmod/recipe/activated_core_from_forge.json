@@ -1,0 +1,10 @@
+{
+  "type": "willmod:will_forge",
+  "ingredient": {
+    "item": "willmod:extinguished_frost_core"
+  },
+  "result": {
+    "id": "willmod:activated_frost_core",
+    "count": 1
+  }
+}

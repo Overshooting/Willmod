@@ -11,12 +11,12 @@
     }
   },
   "pattern": [
-    "BBB",
-    "BAB",
-    "BBB"
+    "AB ",
+    "BA ",
+    "   "
   ],
   "result": {
-    "count": 1,
-    "id": "willmod:will_forge_block"
+    "count": 5,
+    "id": "willmod:will_forge_support_block"
   }
 }

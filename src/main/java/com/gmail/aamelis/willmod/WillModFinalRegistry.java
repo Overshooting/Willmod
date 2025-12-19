@@ -22,6 +22,7 @@ public class WillModFinalRegistry {
         BlockEntitiesInit.register(modEventBus);
         MenuTypesInit.register(modEventBus);
         RecipesInit.register(modEventBus);
+        LootModifiersInit.register(modEventBus);
 
     }
 

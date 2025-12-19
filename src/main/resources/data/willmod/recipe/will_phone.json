@@ -1,0 +1,35 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "will_phone",
+  "key": {
+    "A": {
+      "item": "willmod:will_shard"
+    },
+    "B": {
+      "item": "minecraft:blue_ice"
+    },
+    "C": {
+      "item": "minecraft:repeater"
+    },
+    "D": {
+      "item": "willmod:activated_frost_core"
+    },
+    "E": {
+      "item": "minecraft:glass"
+    },
+    "F": {
+      "tag": "minecraft:buttons"
+    }
+
+  },
+  "pattern": [
+    "ACA",
+    "EDE",
+    "FBF"
+  ],
+  "result": {
+    "count": 1,
+    "id": "willmod:will_phone"
+  }
+}

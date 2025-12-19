@@ -1,0 +1,16 @@
+{
+  "type": "willmod:add_item",
+  "conditions": [
+    {
+      "condition": "neoforge:loot_table_id",
+      "loot_table_id": "minecraft:blocks/ice"
+    },
+    {
+      "condition": "minecraft:match_tool",
+      "items": "willmod:will_pickaxe"
+    }
+  ],
+  "item": "willmod:will_shard",
+  "min": 1,
+  "max": 1
+}
