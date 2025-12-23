@@ -1,11 +1,13 @@
 package com.gmail.aamelis.willmod.Registries;
 
 import com.gmail.aamelis.willmod.WillModFinalRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -35,7 +37,7 @@ public class CreativeTabsInit {
             () -> CreativeModeTab.builder()
                     .withTabsBefore(ResourceLocation.fromNamespaceAndPath(WillModFinalRegistry.MODID, "willmod_all_items_tab"))
                     .icon(() -> new ItemStack(BlocksInit.WILL_FACE_BLOCK.get()))
-                    .title(Component.translatable("creativetab.willmod.all_items"))
+                    .title(Component.translatable("creativetab.willmod.all_blocks"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(BlocksInit.WILL_FACE_BLOCK);
                         output.accept(BlocksInit.WILL_FORGE_BLOCK);
@@ -43,6 +45,34 @@ public class CreativeTabsInit {
                         output.accept(BlocksInit.WILL_FORGE_CORE_BLOCK);
 
                     }).build());
+
+    public static final Supplier<CreativeModeTab> ALL_TOOLS_TAB = CREATIVE_MODE_TABS.register("willmod_all_tools_tab",
+            (() -> CreativeModeTab.builder()
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(WillModFinalRegistry.MODID, "willmod_all_blocks_tab"))
+                    .icon(() -> new ItemStack(ItemsInit.WILL_SWORD.get()))
+                    .title(Component.translatable("creativetab.willmod.all_tools"))
+                    .displayItems((itemDisplayParameters, output) -> {
+                        var enchants = Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
+
+                        output.accept(ItemsInit.WILL_PICKAXE);
+                        output.accept(ItemsInit.WILL_SWORD);
+
+                        ItemStack betterPickaxeItemStack = new ItemStack(ItemsInit.BETTER_WILL_PICKAXE.get());
+                        betterPickaxeItemStack.enchant(enchants.getHolderOrThrow(Enchantments.SILK_TOUCH), 1);
+                        betterPickaxeItemStack.enchant(enchants.getHolderOrThrow(Enchantments.SILK_TOUCH), 1);
+
+                        output.accept(betterPickaxeItemStack);
+                        output.accept(ItemsInit.WILL_AXE);
+                        output.accept(ItemsInit.WILL_HELMET);
+                        output.accept(ItemsInit.WILL_CHESTPLATE);
+                        output.accept(ItemsInit.WILL_LEGGINGS);
+
+                        ItemStack willBootsItemStack = new ItemStack(ItemsInit.WILL_BOOTS.get());
+                        willBootsItemStack.enchant(enchants.getHolderOrThrow(Enchantments.FROST_WALKER), 2);
+
+                        output.accept(willBootsItemStack);
+
+                    }).build()));
 
     public static void register(IEventBus eventBus) {
         CREATIVE_MODE_TABS.register(eventBus);

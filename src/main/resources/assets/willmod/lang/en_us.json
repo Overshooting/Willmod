@@ -11,6 +11,13 @@
   "item.willmod.activated_frost_core": "Activated Frost Core",
   "item.willmod.chilling_amalgam": "Chilling Amalgam",
   "item.willmod.will_ingot": "Ingot of William",
+  "item.willmod.will_sword": "Wrath of Ryu",
+  "item.willmod.better_will_pickaxe": "IceBreaker",
+  "item.willmod.will_axe": "King's Bane",
+  "item.willmod.will_helmet": "Frost King's Helmet",
+  "item.willmod.will_chestplate": "Frost King's Plate",
+  "item.willmod.will_leggings": "Frost King's Leggings",
+  "item.willmod.will_boots": "Frost King's Boots",
 
   "block.willmod.williams_face_block": "William's Face",
   "block.willmod.will_forge_block": "William Forge",
@@ -19,5 +26,7 @@
 
   "container.willmod.will_forge": "William Forge",
 
-  "creativetab.willmod.all_items": "Willmod"
+  "creativetab.willmod.all_items": "Willmod Items",
+  "creativetab.willmod.all_blocks": "Willmod Blocks",
+  "creativetab.willmod.all_tools": "Willmod Tools"
 }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "willmod:will_ingot"
+    },
+    "B": {
+      "item": "minecraft:netherite_ingot"
+    }
+  },
+  "pattern": [
+    "   ",
+    "ABA",
+    "A A"
+  ],
+  "result": {
+    "count": 1,
+    "id": "willmod:will_boots"
+  }
+}

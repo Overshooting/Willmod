@@ -1,5 +1,6 @@
 {
   "type": "willmod:will_forge",
+  "category": "misc",
   "ingredient": {
     "item": "willmod:chilling_amalgam"
   },

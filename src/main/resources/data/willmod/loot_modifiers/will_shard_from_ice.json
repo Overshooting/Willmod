@@ -7,7 +7,9 @@
     },
     {
       "condition": "minecraft:match_tool",
-      "items": "willmod:will_pickaxe"
+      "predicate": {
+        "items": "willmod:will_pickaxe"
+      }
     }
   ],
   "item": "willmod:will_shard",

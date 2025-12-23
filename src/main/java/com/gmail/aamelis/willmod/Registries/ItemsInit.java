@@ -2,6 +2,7 @@ package com.gmail.aamelis.willmod.Registries;
 
 import com.gmail.aamelis.willmod.Items.*;
 import com.gmail.aamelis.willmod.WillModFinalRegistry;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -39,6 +40,24 @@ public class ItemsInit {
     public static final DeferredItem<Item> CHILLING_AMALGAM = ITEMS.register("chilling_amalgam", ChillingAmalgam::new);
 
     public static final DeferredItem<Item> WILL_INGOT = ITEMS.register("will_ingot", WillIngot::new);
+
+    public static final DeferredItem<Item> WILL_SWORD = ITEMS.register("will_sword", WillSword::new);
+
+    public static final DeferredItem<Item> BETTER_WILL_PICKAXE = ITEMS.register("better_will_pickaxe", BetterWillPickaxe::new);
+
+    public static final DeferredItem<Item> WILL_AXE = ITEMS.register("will_axe", WillAxe::new);
+
+    public static final DeferredItem<Item> WILL_HELMET = ITEMS.register("will_helmet", () ->
+            new WillArmor(ArmorItem.Type.HELMET));
+
+    public static final DeferredItem<Item> WILL_CHESTPLATE = ITEMS.register("will_chestplate", () ->
+            new WillArmor(ArmorItem.Type.CHESTPLATE));
+
+    public static final DeferredItem<Item> WILL_LEGGINGS = ITEMS.register("will_leggings", () ->
+            new WillArmor(ArmorItem.Type.LEGGINGS));
+
+    public static final DeferredItem<Item> WILL_BOOTS = ITEMS.register("will_boots", () ->
+            new WillArmor(ArmorItem.Type.LEGGINGS));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

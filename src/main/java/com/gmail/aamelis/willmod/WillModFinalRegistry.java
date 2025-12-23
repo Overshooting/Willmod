@@ -23,6 +23,7 @@ public class WillModFinalRegistry {
         MenuTypesInit.register(modEventBus);
         RecipesInit.register(modEventBus);
         LootModifiersInit.register(modEventBus);
+        ArmorMaterialsInit.register(modEventBus);
 
     }
 
