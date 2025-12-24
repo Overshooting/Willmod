@@ -57,7 +57,7 @@ public class ItemsInit {
             new WillArmor(ArmorItem.Type.LEGGINGS));
 
     public static final DeferredItem<Item> WILL_BOOTS = ITEMS.register("will_boots", () ->
-            new WillArmor(ArmorItem.Type.LEGGINGS));
+            new WillArmor(ArmorItem.Type.BOOTS));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

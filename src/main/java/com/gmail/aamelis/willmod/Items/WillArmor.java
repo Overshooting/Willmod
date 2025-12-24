@@ -20,7 +20,9 @@ public class WillArmor extends ArmorItem {
         super(
                 ArmorMaterialsInit.RYU_ARMOR,
                 type,
-                new Item.Properties().rarity(Rarity.EPIC)
+                new Item.Properties()
+                        .rarity(Rarity.EPIC)
+                        .stacksTo(1)
         );
     }
 
@@ -49,4 +51,5 @@ public class WillArmor extends ArmorItem {
     public Component getName(ItemStack stack) {
         return super.getName(stack).copy().withStyle(ChatFormatting.AQUA);
     }
+
 }
