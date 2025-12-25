@@ -1,13 +1,19 @@
 package com.gmail.aamelis.willmod.Items;
 
 import com.gmail.aamelis.willmod.Registries.SoundsInit;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+
+import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.List;
 
 
 public class WillPhone extends Item {
@@ -27,4 +33,16 @@ public class WillPhone extends Item {
         return InteractionResultHolder.pass(itemstack);
     }
 
+    @Override
+    @ParametersAreNonnullByDefault
+    public void appendHoverText(ItemStack stack, TooltipContext ttc, List<Component> tooltip, TooltipFlag flagIn) {
+        tooltip.add(Component.literal("Call the Biggest Defender").withStyle(ChatFormatting.DARK_PURPLE));
+
+        super.appendHoverText(stack, ttc, tooltip, flagIn);
+    }
+
+    @Override
+    public Component getName(ItemStack stack) {
+        return super.getName(stack).copy().withStyle(ChatFormatting.AQUA);
+    }
 }

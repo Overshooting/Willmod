@@ -1,6 +1,9 @@
 package com.gmail.aamelis.willmod.Items;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class WillShard extends Item {
 
@@ -8,4 +11,8 @@ public class WillShard extends Item {
         super(new Properties());
     }
 
+    @Override
+    public Component getName(ItemStack stack) {
+        return super.getName(stack).copy().withStyle(ChatFormatting.BLUE);
+    }
 }

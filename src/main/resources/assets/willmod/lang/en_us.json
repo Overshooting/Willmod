@@ -28,5 +28,8 @@
 
   "creativetab.willmod.all_items": "Willmod Items",
   "creativetab.willmod.all_blocks": "Willmod Blocks",
-  "creativetab.willmod.all_tools": "Willmod Tools"
+  "creativetab.willmod.all_tools": "Willmod Tools",
+
+  "jei.willmod.will_shard_info": "Snowstorms infuse the Strays with frosty energy",
+  "jei.willmod.igloo_info": "Long forgotten igloos emanate a chilling aura"
 }
