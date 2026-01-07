@@ -1,4 +1,4 @@
-package com.gmail.aamelis.willmod.Items;
+package com.gmail.aamelis.willmod.Items.Tools;
 
 import com.gmail.aamelis.willmod.Tiers.ModTiers;
 import net.minecraft.ChatFormatting;
@@ -9,21 +9,18 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
-public class WillSword extends SwordItem {
+public class WillAxe extends AxeItem {
 
-    public WillSword() {
+    public WillAxe() {
         super(ModTiers.RYU_TIER, new Item.Properties()
                 .rarity(Rarity.EPIC)
-                .attributes(SwordItem.createAttributes(
-                        ModTiers.RYU_TIER,
-                        11,
-                                -0.45f)));
+                .attributes(AxeItem.createAttributes(ModTiers.RYU_TIER, 11, -1f)));
     }
 
     @Override
     @ParametersAreNonnullByDefault
     public void appendHoverText(ItemStack stack, TooltipContext ttc, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.literal("Ikorose, Shinso").withStyle(ChatFormatting.DARK_PURPLE));
+        tooltip.add(Component.literal("Ryu Will Reign").withStyle(ChatFormatting.DARK_PURPLE));
 
         super.appendHoverText(stack, ttc, tooltip, flagIn);
     }

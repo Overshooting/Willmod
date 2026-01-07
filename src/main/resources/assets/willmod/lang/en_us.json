@@ -18,17 +18,36 @@
   "item.willmod.will_chestplate": "Frost King's Plate",
   "item.willmod.will_leggings": "Frost King's Leggings",
   "item.willmod.will_boots": "Frost King's Boots",
+  "item.willmod.kimchi": "Kimchi",
+  "item.willmod.garlic": "Garlic",
+  "item.willmod.garlic_seeds": "Garlic Seeds",
+  "item.willmod.cabbage": "Cabbage",
+  "item.willmod.cabbage_seeds": "Cabbage Seeds",
 
   "block.willmod.williams_face_block": "William's Face",
   "block.willmod.will_forge_block": "William Forge",
   "block.willmod.will_forge_support_block": "William Forge Support",
   "block.willmod.will_forge_core_block": "Core of William's Forge",
+  "block.willmod.garlic_crop": "Garlic",
+  "block.willmod.cabbage_crop": "Cabbage",
 
   "container.willmod.will_forge": "William Forge",
 
-  "creativetab.willmod.all_items": "Willmod Items",
+  "creativetab.willmod.all_ingredients": "Willmod Ingredients",
   "creativetab.willmod.all_blocks": "Willmod Blocks",
   "creativetab.willmod.all_tools": "Willmod Tools",
+  "creativetab.willmod.all_foods": "Willmod Foods",
+
+  "painting.willmod.william_defender.title": "William's Biggest Defender",
+  "painting.willmod.william_defender.author": "Overshoot52",
+  "painting.willmod.william_evil.title": "Billiam Awakens",
+  "painting.willmod.william_evil.author": "Overshoot52",
+  "painting.willmod.william_friend.title": "An Ally Emerges",
+  "painting.willmod.william_friend.author": "Overshoot52",
+  "painting.willmod.william_happy.title": "A Joyous King",
+  "painting.willmod.william_happy.author": "Overshoot52",
+  "painting.willmod.william_stare.title": "He is Disappointed...",
+  "painting.willmod.william_stare.author": "Overshoot52",
 
   "jei.willmod.will_shard_info": "Snowstorms infuse the Strays with frosty energy",
   "jei.willmod.igloo_info": "Long forgotten igloos emanate a chilling aura"

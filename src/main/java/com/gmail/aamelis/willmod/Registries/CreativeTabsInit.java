@@ -18,7 +18,7 @@ public class CreativeTabsInit {
     public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS =
             DeferredRegister.create(Registries.CREATIVE_MODE_TAB, WillModFinalRegistry.MODID);
 
-    public static final Supplier<CreativeModeTab> ALL_ITEMS_TAB = CREATIVE_MODE_TABS.register("willmod_all_items_tab",
+    public static final Supplier<CreativeModeTab> ALL_INGREDIENTS_TAB = CREATIVE_MODE_TABS.register("willmod_all_ingredients_tab",
             () -> CreativeModeTab.builder()
                     .icon(() -> new ItemStack(ItemsInit.WILL_SHARD.get()))
                     .title(Component.translatable("creativetab.willmod.all_items"))
@@ -35,7 +35,7 @@ public class CreativeTabsInit {
 
     public static final Supplier<CreativeModeTab> ALL_BLOCKS_TAB = CREATIVE_MODE_TABS.register("willmod_all_blocks_tab",
             () -> CreativeModeTab.builder()
-                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(WillModFinalRegistry.MODID, "willmod_all_items_tab"))
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(WillModFinalRegistry.MODID, "willmod_all_ingredients_tab"))
                     .icon(() -> new ItemStack(BlocksInit.WILL_FACE_BLOCK.get()))
                     .title(Component.translatable("creativetab.willmod.all_blocks"))
                     .displayItems((itemDisplayParameters, output) -> {
@@ -56,6 +56,7 @@ public class CreativeTabsInit {
 
                         output.accept(ItemsInit.WILL_PICKAXE);
                         output.accept(ItemsInit.WILL_SWORD);
+                        output.accept(ItemsInit.WILL_PHONE);
 
                         ItemStack betterPickaxeItemStack = new ItemStack(ItemsInit.BETTER_WILL_PICKAXE.get());
                         betterPickaxeItemStack.enchant(enchants.getHolderOrThrow(Enchantments.SILK_TOUCH), 1);
@@ -71,6 +72,20 @@ public class CreativeTabsInit {
                         willBootsItemStack.enchant(enchants.getHolderOrThrow(Enchantments.FROST_WALKER), 2);
 
                         output.accept(willBootsItemStack);
+
+                    }).build()));
+
+    public static final Supplier<CreativeModeTab> ALL_FOODS_TAB = CREATIVE_MODE_TABS.register("willmod_all_foods_tab",
+            (() -> CreativeModeTab.builder()
+                    .withTabsBefore(ResourceLocation.fromNamespaceAndPath(WillModFinalRegistry.MODID, "willmod_all_tools_tab"))
+                    .icon(() -> new ItemStack(ItemsInit.KIMCHI.get()))
+                    .title(Component.translatable("creativetab.willmod.all_foods"))
+                    .displayItems((itemDisplayParameters, output) -> {
+                        output.accept(ItemsInit.KIMCHI);
+                        output.accept(ItemsInit.GARLIC);
+                        output.accept(ItemsInit.GARLIC_SEEDS);
+                        output.accept(ItemsInit.CABBAGE_SEEDS);
+                        output.accept(ItemsInit.CABBAGE);
 
                     }).build()));
 
