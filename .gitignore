@@ -1,3 +1,7 @@
+
+src/main/java/com/gmail/aamelis/examplereferences
+.vscode
+
 # eclipse
 bin
 *.launch
@@ -16,6 +20,8 @@ out
 # gradle
 build
 .gradle
+gradlew
+gradlew.bat
 
 # other
 eclipse
@@ -24,5 +30,3 @@ runs
 run-data
 
 repo
-
-src/main/java/com/gmail/aamelis/examplereferences
