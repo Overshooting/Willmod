@@ -1,4 +1,4 @@
-package com.gmail.aamelis.willmod.Items;
+package com.gmail.aamelis.willmod.Items.Tools;
 
 import com.gmail.aamelis.willmod.Tiers.ModTiers;
 import net.minecraft.ChatFormatting;

@@ -1,4 +1,4 @@
-package com.gmail.aamelis.willmod.Items;
+package com.gmail.aamelis.willmod.Items.Tools;
 
 import com.gmail.aamelis.willmod.Registries.ArmorMaterialsInit;
 import com.gmail.aamelis.willmod.Registries.ItemsInit;

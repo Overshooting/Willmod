@@ -1,4 +1,4 @@
-package com.gmail.aamelis.willmod.Items;
+package com.gmail.aamelis.willmod.Items.Tools;
 
 import com.gmail.aamelis.willmod.Registries.SoundsInit;
 import net.minecraft.ChatFormatting;
@@ -15,9 +15,10 @@ import net.minecraft.world.level.Level;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
-public class ActivatedFrostCore extends Item {
 
-    public ActivatedFrostCore() {
+public class WillPhone extends Item {
+
+    public WillPhone() {
         super(new Properties());
     }
 
@@ -25,6 +26,7 @@ public class ActivatedFrostCore extends Item {
     public InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
         ItemStack itemstack = p_41433_.getItemInHand(p_41434_);
         if (!p_41432_.isClientSide()) {
+            p_41432_.playSound(null, 0.1, 0.1, 0.1, SoundsInit.WILL_PHONE_USE.get(), SoundSource.MASTER, 100f, 2.5f);
             p_41433_.setTicksFrozen(400);
             return InteractionResultHolder.success(itemstack);
         }
@@ -32,15 +34,15 @@ public class ActivatedFrostCore extends Item {
     }
 
     @Override
-    public Component getName(ItemStack stack) {
-        return super.getName(stack).copy().withStyle(ChatFormatting.DARK_AQUA);
+    @ParametersAreNonnullByDefault
+    public void appendHoverText(ItemStack stack, TooltipContext ttc, List<Component> tooltip, TooltipFlag flagIn) {
+        tooltip.add(Component.literal("Call the Biggest Defender").withStyle(ChatFormatting.DARK_PURPLE));
+
+        super.appendHoverText(stack, ttc, tooltip, flagIn);
     }
 
     @Override
-    @ParametersAreNonnullByDefault
-    public void appendHoverText(ItemStack stack, TooltipContext ttc, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.literal("Absolute Zero").withStyle(ChatFormatting.DARK_PURPLE));
-
-        super.appendHoverText(stack, ttc, tooltip, flagIn);
+    public Component getName(ItemStack stack) {
+        return super.getName(stack).copy().withStyle(ChatFormatting.AQUA);
     }
 }

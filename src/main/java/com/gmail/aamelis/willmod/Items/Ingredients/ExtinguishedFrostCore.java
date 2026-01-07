@@ -1,4 +1,4 @@
-package com.gmail.aamelis.willmod.Items;
+package com.gmail.aamelis.willmod.Items.Ingredients;
 
 import net.minecraft.world.item.Item;
 

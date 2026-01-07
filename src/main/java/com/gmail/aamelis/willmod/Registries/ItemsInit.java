@@ -1,13 +1,12 @@
 package com.gmail.aamelis.willmod.Registries;
 
-import com.gmail.aamelis.willmod.Items.*;
+import com.gmail.aamelis.willmod.Items.Foods.ModFoodProperties;
+import com.gmail.aamelis.willmod.Items.Ingredients.*;
+import com.gmail.aamelis.willmod.Items.Tools.*;
 import com.gmail.aamelis.willmod.WillModFinalRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -68,6 +67,21 @@ public class ItemsInit {
 
     public static final DeferredItem<Item> WILL_BOOTS = ITEMS.register("will_boots", () ->
             new WillArmor(ArmorItem.Type.BOOTS));
+
+    public static final DeferredItem<Item> KIMCHI = ITEMS.register("kimchi", () ->
+            new Item(new Item.Properties().food(ModFoodProperties.KIMCHI)));
+
+    public static final DeferredItem<Item> GARLIC = ITEMS.register("garlic", () ->
+            new Item(new Item.Properties().food(ModFoodProperties.GARLIC)));
+
+    public static final DeferredItem<Item> CABBAGE = ITEMS.register("cabbage", () ->
+            new Item(new Item.Properties().food(ModFoodProperties.CABBAGE)));
+
+    public static final DeferredItem<Item> GARLIC_SEEDS = ITEMS.register("garlic_seeds", () ->
+            new ItemNameBlockItem(BlocksInit.GARLIC_CROP.get(), new Item.Properties()));
+
+    public static final DeferredItem<Item> CABBAGE_SEEDS = ITEMS.register("cabbage_seeds", () ->
+            new ItemNameBlockItem(BlocksInit.CABBAGE_CROP.get(), new Item.Properties()));
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

@@ -1,4 +1,4 @@
-package com.gmail.aamelis.willmod.Items;
+package com.gmail.aamelis.willmod.Items.Tools;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
