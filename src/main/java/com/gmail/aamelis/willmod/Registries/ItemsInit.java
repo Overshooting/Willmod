@@ -77,6 +77,14 @@ public class ItemsInit {
     public static final DeferredItem<Item> CABBAGE = ITEMS.register("cabbage", () ->
             new Item(new Item.Properties().food(ModFoodProperties.CABBAGE)));
 
+    public static final DeferredItem<Item> KMSAUCE = ITEMS.register("kmsauce", () ->
+            new Item(new Item.Properties().food(ModFoodProperties.KMSAUCE).craftRemainder(Items.GLASS_BOTTLE)) {
+                @Override
+                public UseAnim getUseAnimation(ItemStack stack) {
+                    return UseAnim.DRINK;
+                }
+            });
+
     public static final DeferredItem<Item> GARLIC_SEEDS = ITEMS.register("garlic_seeds", () ->
             new ItemNameBlockItem(BlocksInit.GARLIC_CROP.get(), new Item.Properties()));
 

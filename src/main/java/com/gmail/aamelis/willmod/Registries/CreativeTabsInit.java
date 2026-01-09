@@ -86,6 +86,7 @@ public class CreativeTabsInit {
                         output.accept(ItemsInit.GARLIC_SEEDS);
                         output.accept(ItemsInit.CABBAGE_SEEDS);
                         output.accept(ItemsInit.CABBAGE);
+                        output.accept(ItemsInit.KMSAUCE);
 
                     }).build()));
 

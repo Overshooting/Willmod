@@ -23,7 +23,17 @@
                   }
                 }
               ],
-              "name": "willmod:cabbage"
+              "name": "willmod:cabbage",
+              "functions": [
+                {
+                  "function": "minecraft:set_count",
+                  "count": {
+                    "type": "minecraft:uniform",
+                    "min": 3,
+                    "max": 4
+                  }
+                }
+              ]
             },
             {
               "type": "minecraft:item",
