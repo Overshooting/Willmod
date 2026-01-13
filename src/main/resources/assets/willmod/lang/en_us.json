@@ -3,6 +3,7 @@
   "item.willmod.will_forge_block": "William's Forge",
   "item.willmod.will_forge_support_block": "William's Forge Support",
   "item.willmod.will_forge_core_block": "Core of William's Forge",
+  "item.willmod.kmd_bottler_block": "KMD Bottler",
 
   "item.willmod.will_phone": "Willphone",
   "item.willmod.will_shard": "Shard of William",
@@ -24,6 +25,7 @@
   "item.willmod.cabbage": "Cabbage",
   "item.willmod.cabbage_seeds": "Cabbage Seeds",
   "item.willmod.kmsauce": "Kimchi Marination Sauce",
+  "item.willmod.kmd": "Kimchi Marination Device",
 
   "block.willmod.williams_face_block": "William's Face",
   "block.willmod.will_forge_block": "William Forge",
@@ -31,8 +33,10 @@
   "block.willmod.will_forge_core_block": "Core of William's Forge",
   "block.willmod.garlic_crop": "Garlic",
   "block.willmod.cabbage_crop": "Cabbage",
+  "block.willmod.kmd_bottler_block": "KMD Bottler",
 
   "container.willmod.will_forge": "William Forge",
+  "container.willmod.kmd_bottler": "KMD Bottler",
 
   "creativetab.willmod.all_ingredients": "Willmod Ingredients",
   "creativetab.willmod.all_blocks": "Willmod Blocks",

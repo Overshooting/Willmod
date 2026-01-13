@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "willmod:block/kmd_bottler_front",
+    "side": "willmod:block/kmd_bottler_front",
+    "top": "willmod:block/kmd_bottler_top"
+  }
+}

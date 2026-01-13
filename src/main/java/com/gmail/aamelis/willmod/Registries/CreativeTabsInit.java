@@ -43,6 +43,7 @@ public class CreativeTabsInit {
                         output.accept(BlocksInit.WILL_FORGE_BLOCK);
                         output.accept(BlocksInit.WILL_FORGE_SUPPORT_BLOCK);
                         output.accept(BlocksInit.WILL_FORGE_CORE_BLOCK);
+                        output.accept(BlocksInit.KMD_BOTTLER_BLOCK);
 
                     }).build());
 
@@ -72,6 +73,7 @@ public class CreativeTabsInit {
                         willBootsItemStack.enchant(enchants.getHolderOrThrow(Enchantments.FROST_WALKER), 2);
 
                         output.accept(willBootsItemStack);
+                        output.accept(ItemsInit.KMD);
 
                     }).build()));
 

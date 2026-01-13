@@ -1,12 +1,14 @@
 package com.gmail.aamelis.willmod.Registries;
 
 import com.gmail.aamelis.willmod.Items.Foods.ModFoodProperties;
+import com.gmail.aamelis.willmod.Items.Foods.KMD;
 import com.gmail.aamelis.willmod.Items.Ingredients.*;
 import com.gmail.aamelis.willmod.Items.Tools.*;
 import com.gmail.aamelis.willmod.WillModFinalRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.BlockCollisions;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -35,6 +37,9 @@ public class ItemsInit {
                     return super.getName(stack).copy().withStyle(ChatFormatting.DARK_AQUA);
                 }
             });
+
+    public static final DeferredItem<Item> KMD_BOTTLER_BLOCK_ITEM = ITEMS.register("kmd_bottler_block",
+            () -> createBlockItem(BlocksInit.KMD_BOTTLER_BLOCK));
 
     public static final DeferredItem<Item> WILL_SHARD = ITEMS.register("will_shard", WillShard::new);
 
@@ -90,6 +95,8 @@ public class ItemsInit {
 
     public static final DeferredItem<Item> CABBAGE_SEEDS = ITEMS.register("cabbage_seeds", () ->
             new ItemNameBlockItem(BlocksInit.CABBAGE_CROP.get(), new Item.Properties()));
+
+    public static final DeferredItem<Item> KMD = ITEMS.register("kmd", com.gmail.aamelis.willmod.Items.Foods.KMD::new);
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
