@@ -1,6 +1,8 @@
 package com.gmail.aamelis.willmod;
 
+import com.gmail.aamelis.willmod.Blocks.entities.KMDBottlerBlockEntity;
 import com.gmail.aamelis.willmod.Registries.*;
+import com.gmail.aamelis.willmod.Screens.KMDBottlerScreen;
 import com.gmail.aamelis.willmod.Screens.WillForgeScreen;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -32,6 +34,7 @@ public class WillModFinalRegistry {
         @SubscribeEvent
         public static void registerScreens(RegisterMenuScreensEvent event) {
             event.register(MenuTypesInit.WILL_FORGE_MENU.get(), WillForgeScreen::new);
+            event.register(MenuTypesInit.KMD_BOTTLER_MENU.get(), KMDBottlerScreen::new);
         }
     }
 }

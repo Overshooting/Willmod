@@ -1,9 +1,7 @@
 package com.gmail.aamelis.willmod.Blocks;
 
 import com.gmail.aamelis.willmod.Blocks.entities.KMDBottlerBlockEntity;
-import com.gmail.aamelis.willmod.Blocks.entities.WillForgeBlockEntity;
 import com.gmail.aamelis.willmod.Registries.BlockEntitiesInit;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -16,18 +14,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.RenderShape;
-import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Map;
 
 public class KMDBottlerBlock extends BaseEntityBlock {
     public static final MapCodec<KMDBottlerBlock> CODEC = simpleCodec(KMDBottlerBlock::new);
@@ -57,7 +49,7 @@ public class KMDBottlerBlock extends BaseEntityBlock {
         if (!level.isClientSide()) {
             BlockEntity blockEntity = level.getBlockEntity(pos);
             if (blockEntity instanceof KMDBottlerBlockEntity kmdBottlerBlockEntity) {
-                ((ServerPlayer) player).openMenu(new SimpleMenuProvider(kmdBottlerBlockEntity, Component.literal("Will Forge")), pos);
+                ((ServerPlayer) player).openMenu(new SimpleMenuProvider(kmdBottlerBlockEntity, Component.translatable("block.willmod.kmd_bottler_block")), pos);
             } else {
                 throw new IllegalStateException("Container not found");
             }

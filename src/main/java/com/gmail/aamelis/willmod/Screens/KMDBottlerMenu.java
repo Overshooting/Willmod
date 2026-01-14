@@ -39,17 +39,7 @@ public class KMDBottlerMenu extends AbstractContainerMenu {
         addPlayerHotbar(inv);
 
         this.addSlot(new SlotItemHandler(blockEntity.itemInventory, 0 , 54, 34));
-        this.addSlot(new SlotItemHandler(blockEntity.itemInventory, 1 , 104, 34) {
-            @Override
-            public boolean mayPlace(ItemStack stack) {
-                return false;
-            }
-
-            @Override
-            public boolean mayPickup(Player player) {
-                return true;
-            }
-        });
+        this.addSlot(new SlotItemHandler(blockEntity.itemInventory, 1 , 104, 34));
     }
 
     @Override

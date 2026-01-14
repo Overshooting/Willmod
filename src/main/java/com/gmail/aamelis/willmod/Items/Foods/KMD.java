@@ -1,6 +1,8 @@
 package com.gmail.aamelis.willmod.Items.Foods;
 
 import com.gmail.aamelis.willmod.Registries.ItemsInit;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -10,16 +12,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+
+import java.util.List;
 
 public class KMD extends Item {
     public static final Item HELD_ITEM = ItemsInit.KMSAUCE.get();
+    public static final int MAX_CAPACITY = 256;
 
     public KMD() {
         super(new Item.Properties()
                 .stacksTo(1)
                 .durability(257)
-                .food(new FoodProperties.Builder().build()));
+                .food(new FoodProperties.Builder().build())
+                .setNoRepair());
     }
 
     @Override
@@ -59,7 +67,7 @@ public class KMD extends Item {
     }
 
     public static boolean isEmpty(ItemStack stack) {
-        return stack.getDamageValue() >= stack.getMaxDamage() - 1;
+        return stack.getDamageValue() >= MAX_CAPACITY;
     }
 
     public static boolean isFull(ItemStack stack) {
@@ -79,6 +87,35 @@ public class KMD extends Item {
         if (isFull(stack)) return;
 
         stack.setDamageValue(stack.getDamageValue() - 1);
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        String tooltip = isEmpty(stack) ? "Empty" : getAmount(stack) + " Charges";
+
+        tooltipComponents.add(Component.literal(tooltip).withStyle(ChatFormatting.GRAY));
+
+        super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+    }
+
+    @Override
+    public UseAnim getUseAnimation(ItemStack stack) {
+        return UseAnim.DRINK;
+    }
+
+    @Override
+    public ItemStack getDefaultInstance() {
+        ItemStack stack = super.getDefaultInstance();
+        stack.setDamageValue(MAX_CAPACITY);
+
+        return stack;
+    }
+
+    @Override
+    public void onCraftedBy(ItemStack stack, Level level, Player player) {
+        super.onCraftedBy(stack, level, player);
+
+        stack.setDamageValue(MAX_CAPACITY);
     }
 
 

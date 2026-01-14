@@ -2,21 +2,24 @@ package com.gmail.aamelis.willmod.Blocks.entities;
 
 import com.gmail.aamelis.willmod.Items.Foods.KMD;
 import com.gmail.aamelis.willmod.Registries.BlockEntitiesInit;
+import com.gmail.aamelis.willmod.Registries.ItemsInit;
 import com.gmail.aamelis.willmod.Screens.KMDBottlerMenu;
-import com.gmail.aamelis.willmod.Screens.WillForgeMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Containers;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.ItemStackHandler;
 import org.jetbrains.annotations.Nullable;
@@ -70,13 +73,38 @@ public class KMDBottlerBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private void addItem(ItemStack inputItem, ItemStack outputItem) {
-        if (!((KMD) outputItem.getItem()).isFull(outputItem)) {
+        if (!(KMD.isFull(outputItem))) {
             itemInventory.setStackInSlot(INPUT_SLOT, new ItemStack(inputItem.getItem(), inputItem.getCount() - 1));
-            ((KMD)outputItem.getItem()).incrementFoodCount(outputItem);
+            KMD.incrementFoodCount(outputItem);
+            itemInventory.setStackInSlot(OUTPUT_SLOT, outputItem);
         }
     }
 
     private boolean hasRecipe() {
-        return false;
+        return itemInventory.getStackInSlot(INPUT_SLOT).getItem() == ItemsInit.KMSAUCE.get() && itemInventory.getStackInSlot(OUTPUT_SLOT).getItem() == ItemsInit.KMD.get();
+    }
+
+    @Override
+    public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
+        return saveWithoutMetadata(registries);
+    }
+
+    @Override
+    public @Nullable Packet<ClientGamePacketListener> getUpdatePacket() {
+        return ClientboundBlockEntityDataPacket.create(this);
+    }
+
+    @Override
+    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        tag.put("inventory", itemInventory.serializeNBT(registries));
+
+        super.saveAdditional(tag, registries);
+    }
+
+    @Override
+    protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
+
+        itemInventory.deserializeNBT(registries, tag.getCompound("inventory"));
     }
 }

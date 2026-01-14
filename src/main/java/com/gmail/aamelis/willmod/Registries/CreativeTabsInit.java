@@ -21,7 +21,7 @@ public class CreativeTabsInit {
     public static final Supplier<CreativeModeTab> ALL_INGREDIENTS_TAB = CREATIVE_MODE_TABS.register("willmod_all_ingredients_tab",
             () -> CreativeModeTab.builder()
                     .icon(() -> new ItemStack(ItemsInit.WILL_SHARD.get()))
-                    .title(Component.translatable("creativetab.willmod.all_items"))
+                    .title(Component.translatable("creativetab.willmod.all_ingredients"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ItemsInit.WILL_PHONE);
                         output.accept(ItemsInit.WILL_PICKAXE);
@@ -73,7 +73,11 @@ public class CreativeTabsInit {
                         willBootsItemStack.enchant(enchants.getHolderOrThrow(Enchantments.FROST_WALKER), 2);
 
                         output.accept(willBootsItemStack);
-                        output.accept(ItemsInit.KMD);
+
+                        ItemStack KMDItemStack = new ItemStack(ItemsInit.KMD.get());
+                        KMDItemStack.setDamageValue(256);
+
+                        output.accept(KMDItemStack);
 
                     }).build()));
 
