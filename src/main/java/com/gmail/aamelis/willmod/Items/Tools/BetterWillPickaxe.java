@@ -26,7 +26,7 @@ public class BetterWillPickaxe extends PickaxeItem {
     @Override
     @ParametersAreNonnullByDefault
     public void appendHoverText(ItemStack stack, TooltipContext ttc, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.literal("Shatter The Veil").withStyle(ChatFormatting.DARK_PURPLE));
+        tooltip.add(Component.translatable("willmod.tooltip.better_will_pickaxe").withStyle(ChatFormatting.DARK_PURPLE));
 
         super.appendHoverText(stack, ttc, tooltip, flagIn);
     }

@@ -16,7 +16,7 @@ public class WillPickaxe extends PickaxeItem {
     @Override
     @ParametersAreNonnullByDefault
     public void appendHoverText(ItemStack stack, TooltipContext ttc, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.literal("Strips William's Essence from Ice Blocks"));
+        tooltip.add(Component.translatable("tooltip.willmod.will_pickaxe"));
 
         super.appendHoverText(stack, ttc, tooltip, flagIn);
     }

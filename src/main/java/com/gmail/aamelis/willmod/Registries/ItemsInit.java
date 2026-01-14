@@ -1,14 +1,12 @@
 package com.gmail.aamelis.willmod.Registries;
 
 import com.gmail.aamelis.willmod.Items.Foods.ModFoodProperties;
-import com.gmail.aamelis.willmod.Items.Foods.KMD;
 import com.gmail.aamelis.willmod.Items.Ingredients.*;
 import com.gmail.aamelis.willmod.Items.Tools.*;
 import com.gmail.aamelis.willmod.WillModFinalRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.BlockCollisions;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;

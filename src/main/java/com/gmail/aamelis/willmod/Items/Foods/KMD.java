@@ -7,6 +7,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -25,7 +26,7 @@ public class KMD extends Item {
     public KMD() {
         super(new Item.Properties()
                 .stacksTo(1)
-                .durability(257)
+                .durability(258)
                 .food(new FoodProperties.Builder().build())
                 .setNoRepair());
     }
@@ -71,15 +72,15 @@ public class KMD extends Item {
     }
 
     public static boolean isFull(ItemStack stack) {
-        return stack.getDamageValue() == 0;
+        return stack.getDamageValue() <= 1;
     }
 
     public static int getAmount(ItemStack stack) {
-        return stack.getMaxDamage() - 1 - stack.getDamageValue();
+        return stack.getMaxDamage() - 2 - stack.getDamageValue();
     }
 
     public static void setAmount(ItemStack stack, int amount) {
-        int max = stack.getMaxDamage() - 1;
+        int max = stack.getMaxDamage() - 2;
         stack.setDamageValue(max - Mth.clamp(amount, 0, max));
     }
 
@@ -118,5 +119,8 @@ public class KMD extends Item {
         stack.setDamageValue(MAX_CAPACITY);
     }
 
-
+    @Override
+    public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
+        super.inventoryTick(stack, level, entity, slotId, isSelected);
+    }
 }

@@ -27,6 +27,13 @@
   "item.willmod.kmsauce": "Kimchi Marination Sauce",
   "item.willmod.kmd": "Kimchi Marination Device",
 
+  "tooltip.willmod.will_phone": "Call the Biggest Defender",
+  "tooltip.willmod.will_pickaxe": "Strips William's Essence from Ice Blocks",
+  "tooltip.willmod.activated_frost_core": "Absolute Zero",
+  "tooltip.willmod.will_sword": "Ikorose, Shinso",
+  "tooltip.willmod.better_will_pickaxe": "Pierce the Veil",
+  "tooltip.willmod.will_axe": "Ryu Will Reign",
+
   "block.willmod.williams_face_block": "William's Face",
   "block.willmod.will_forge_block": "William Forge",
   "block.willmod.will_forge_support_block": "William Forge Support",

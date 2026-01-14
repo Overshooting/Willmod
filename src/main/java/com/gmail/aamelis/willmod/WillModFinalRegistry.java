@@ -1,6 +1,5 @@
 package com.gmail.aamelis.willmod;
 
-import com.gmail.aamelis.willmod.Blocks.entities.KMDBottlerBlockEntity;
 import com.gmail.aamelis.willmod.Registries.*;
 import com.gmail.aamelis.willmod.Screens.KMDBottlerScreen;
 import com.gmail.aamelis.willmod.Screens.WillForgeScreen;
