@@ -13,6 +13,8 @@ public class ModFoodProperties {
 
     public static final FoodProperties KMSAUCE = new FoodProperties.Builder().nutrition(2).saturationModifier(0.25f).alwaysEdible().usingConvertsTo(Items.GLASS_BOTTLE).build();
 
+    public static final FoodProperties SUPER_KMSAUCE = new FoodProperties.Builder().nutrition(5).saturationModifier(0.45f).alwaysEdible().usingConvertsTo(Items.GLASS_BOTTLE).build();
+
 
 
 }

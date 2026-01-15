@@ -1,6 +1,7 @@
 package com.gmail.aamelis.willmod.Blocks.entities;
 
-import com.gmail.aamelis.willmod.Items.Foods.KMD;
+import com.gmail.aamelis.willmod.Items.Foods.KMD.AbstractKMD;
+import com.gmail.aamelis.willmod.Items.Foods.KMD.KMD;
 import com.gmail.aamelis.willmod.Registries.BlockEntitiesInit;
 import com.gmail.aamelis.willmod.Registries.ItemsInit;
 import com.gmail.aamelis.willmod.Screens.KMDBottlerMenu;
@@ -69,19 +70,22 @@ public class KMDBottlerBlockEntity extends BlockEntity implements MenuProvider {
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (!level.isClientSide() && hasRecipe()) {
             addItem(itemInventory.getStackInSlot(INPUT_SLOT), itemInventory.getStackInSlot(OUTPUT_SLOT));
+            setChanged();
+            level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
         }
     }
 
     private void addItem(ItemStack inputItem, ItemStack outputItem) {
-        if (!(KMD.isFull(outputItem))) {
+        if (!(AbstractKMD.isFull(outputItem))) {
             itemInventory.setStackInSlot(INPUT_SLOT, new ItemStack(inputItem.getItem(), inputItem.getCount() - 1));
-            KMD.incrementFoodCount(outputItem);
+            AbstractKMD.incrementFoodCount(outputItem);
             itemInventory.setStackInSlot(OUTPUT_SLOT, outputItem);
         }
     }
 
     private boolean hasRecipe() {
-        return itemInventory.getStackInSlot(INPUT_SLOT).getItem() == ItemsInit.KMSAUCE.get() && itemInventory.getStackInSlot(OUTPUT_SLOT).getItem() == ItemsInit.KMD.get();
+        return itemInventory.getStackInSlot(INPUT_SLOT).getItem() == ItemsInit.KMSAUCE.get() && itemInventory.getStackInSlot(OUTPUT_SLOT).getItem() == ItemsInit.KMD.get() ||
+                itemInventory.getStackInSlot(INPUT_SLOT).getItem() == ItemsInit.SUPER_KMSAUCE.get() && itemInventory.getStackInSlot(OUTPUT_SLOT).getItem() == ItemsInit.SUPER_KMD.get();
     }
 
     @Override

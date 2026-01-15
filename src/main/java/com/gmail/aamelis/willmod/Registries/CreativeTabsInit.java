@@ -1,5 +1,8 @@
 package com.gmail.aamelis.willmod.Registries;
 
+import com.gmail.aamelis.willmod.Items.Foods.KMD.AbstractKMD;
+import com.gmail.aamelis.willmod.Items.Foods.KMD.KMD;
+import com.gmail.aamelis.willmod.Items.Foods.KMD.SuperKMD;
 import com.gmail.aamelis.willmod.WillModFinalRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -75,9 +78,14 @@ public class CreativeTabsInit {
                         output.accept(willBootsItemStack);
 
                         ItemStack KMDItemStack = new ItemStack(ItemsInit.KMD.get());
-                        KMDItemStack.setDamageValue(256);
+                        AbstractKMD.setAmount(KMDItemStack, 0);
 
                         output.accept(KMDItemStack);
+
+                        ItemStack superKMDItemStack = new ItemStack(ItemsInit.SUPER_KMD.get());
+                        AbstractKMD.setAmount(superKMDItemStack, 0);
+
+                        output.accept(superKMDItemStack);
 
                     }).build()));
 
@@ -93,6 +101,7 @@ public class CreativeTabsInit {
                         output.accept(ItemsInit.CABBAGE_SEEDS);
                         output.accept(ItemsInit.CABBAGE);
                         output.accept(ItemsInit.KMSAUCE);
+                        output.accept(ItemsInit.SUPER_KMSAUCE);
 
                     }).build()));
 

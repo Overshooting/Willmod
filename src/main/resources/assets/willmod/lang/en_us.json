@@ -26,6 +26,8 @@
   "item.willmod.cabbage_seeds": "Cabbage Seeds",
   "item.willmod.kmsauce": "Kimchi Marination Sauce",
   "item.willmod.kmd": "Kimchi Marination Device",
+  "item.willmod.super_kmsauce": "Ichor of the Frost King",
+  "item.willmod.super_kmd": "Frost-Hardened KMD",
 
   "tooltip.willmod.will_phone": "Call the Biggest Defender",
   "tooltip.willmod.will_pickaxe": "Strips William's Essence from Ice Blocks",
@@ -62,5 +64,7 @@
   "painting.willmod.william_stare.author": "Overshoot52",
 
   "jei.willmod.will_shard_info": "Snowstorms infuse the Strays with frosty energy",
-  "jei.willmod.igloo_info": "Long forgotten igloos emanate a chilling aura"
+  "jei.willmod.igloo_info": "Long forgotten igloos emanate a chilling aura",
+  "jei.willmod.kmd_instructions": "Fill with Kimchi Marination Sauce in the KMD Bottler",
+  "jei.willmod.super_kmd_instructions": "Fill with Ichor of the Frost King in the KMD Bottler"
 }

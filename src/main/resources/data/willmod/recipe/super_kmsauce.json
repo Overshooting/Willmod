@@ -1,0 +1,11 @@
+{
+  "type": "willmod:will_forge",
+  "category": "misc",
+  "ingredient": {
+    "item": "willmod:kmsauce"
+  },
+  "result": {
+    "id": "willmod:super_kmsauce",
+    "count": 1
+  }
+}

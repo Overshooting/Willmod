@@ -2,12 +2,14 @@ package com.gmail.aamelis.willmod.Screens;
 
 import com.gmail.aamelis.willmod.Blocks.entities.KMDBottlerBlockEntity;
 import com.gmail.aamelis.willmod.Registries.BlocksInit;
+import com.gmail.aamelis.willmod.Registries.ItemsInit;
 import com.gmail.aamelis.willmod.Registries.MenuTypesInit;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
@@ -38,8 +40,18 @@ public class KMDBottlerMenu extends AbstractContainerMenu {
         addPlayerInventory(inv);
         addPlayerHotbar(inv);
 
-        this.addSlot(new SlotItemHandler(blockEntity.itemInventory, 0 , 54, 34));
-        this.addSlot(new SlotItemHandler(blockEntity.itemInventory, 1 , 104, 34));
+        this.addSlot(new SlotItemHandler(blockEntity.itemInventory, 0 , 52, 34) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return stack.getItem() == ItemsInit.KMSAUCE.get() || stack.getItem() == ItemsInit.SUPER_KMSAUCE.get();
+            }
+        });
+        this.addSlot(new SlotItemHandler(blockEntity.itemInventory, 1 , 104, 34) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return stack.getItem() == ItemsInit.KMD.get() || stack.getItem() == ItemsInit.SUPER_KMD.get();
+            }
+        });
     }
 
     @Override

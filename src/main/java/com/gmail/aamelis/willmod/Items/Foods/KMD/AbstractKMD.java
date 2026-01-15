@@ -1,6 +1,5 @@
-package com.gmail.aamelis.willmod.Items.Foods;
+package com.gmail.aamelis.willmod.Items.Foods.KMD;
 
-import com.gmail.aamelis.willmod.Registries.ItemsInit;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -19,16 +18,20 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public class KMD extends Item {
-    public static final Item HELD_ITEM = ItemsInit.KMSAUCE.get();
-    public static final int MAX_CAPACITY = 256;
+public abstract class AbstractKMD extends Item {
 
-    public KMD() {
+    private final Item heldItem;
+    private final int maxCapacity;
+
+    public AbstractKMD(Item item, int capacity) {
         super(new Item.Properties()
                 .stacksTo(1)
-                .durability(258)
+                .durability(capacity + 2)
                 .food(new FoodProperties.Builder().build())
                 .setNoRepair());
+
+        heldItem = item;
+        maxCapacity = capacity;
     }
 
     @Override
@@ -42,7 +45,7 @@ public class KMD extends Item {
 
     private void feedStoredFood(ItemStack stack, Player player) {
 
-        FoodProperties props = HELD_ITEM.getFoodProperties(new ItemStack(HELD_ITEM), player);
+        FoodProperties props = heldItem.getFoodProperties(new ItemStack(heldItem), player);
         if (props == null) return;
 
         player.getFoodData().eat(props.nutrition(), props.saturation());
@@ -68,20 +71,22 @@ public class KMD extends Item {
     }
 
     public static boolean isEmpty(ItemStack stack) {
-        return stack.getDamageValue() >= MAX_CAPACITY;
+        return stack.getDamageValue() >= getMaxCapacity((AbstractKMD)stack.getItem()) + 1;
     }
 
     public static boolean isFull(ItemStack stack) {
-        return stack.getDamageValue() <= 1;
+        return stack.getDamageValue() == 1;
     }
 
     public static int getAmount(ItemStack stack) {
-        return stack.getMaxDamage() - 2 - stack.getDamageValue();
+        return Math.max(0, getMaxCapacity((AbstractKMD)stack.getItem()) + 1 - stack.getDamageValue());
     }
 
     public static void setAmount(ItemStack stack, int amount) {
-        int max = stack.getMaxDamage() - 2;
-        stack.setDamageValue(max - Mth.clamp(amount, 0, max));
+        AbstractKMD item = (AbstractKMD) stack.getItem();
+
+        int clamped = Mth.clamp(amount, 0, item.maxCapacity);
+        stack.setDamageValue((item.maxCapacity + 1) - clamped);
     }
 
     public static void incrementFoodCount(ItemStack stack) {
@@ -92,6 +97,10 @@ public class KMD extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        if (getAmount(stack) == getMaxCapacity((AbstractKMD) stack.getItem()) + 1) {
+            return;
+        }
+
         String tooltip = isEmpty(stack) ? "Empty" : getAmount(stack) + " Charges";
 
         tooltipComponents.add(Component.literal(tooltip).withStyle(ChatFormatting.GRAY));
@@ -105,22 +114,26 @@ public class KMD extends Item {
     }
 
     @Override
-    public ItemStack getDefaultInstance() {
-        ItemStack stack = super.getDefaultInstance();
-        stack.setDamageValue(MAX_CAPACITY);
-
-        return stack;
-    }
-
-    @Override
     public void onCraftedBy(ItemStack stack, Level level, Player player) {
         super.onCraftedBy(stack, level, player);
 
-        stack.setDamageValue(MAX_CAPACITY);
+        setAmount(stack, 0);
     }
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
-        super.inventoryTick(stack, level, entity, slotId, isSelected);
+        if (stack.getDamageValue() == 0) {
+            stack.setDamageValue(maxCapacity);
+        };
     }
+
+    public static Item getHeldItem(AbstractKMD kmdItem) {
+        return kmdItem.heldItem;
+    }
+
+    public static int getMaxCapacity(AbstractKMD kmdItem) {
+        return kmdItem.maxCapacity;
+    }
+
+
 }
