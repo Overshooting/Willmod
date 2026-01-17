@@ -97,7 +97,12 @@ public class ItemsInit {
     public static final DeferredItem<Item> KMD = ITEMS.register("kmd", com.gmail.aamelis.willmod.Items.Foods.KMD.KMD::new);
 
     public static final DeferredItem<Item> SUPER_KMSAUCE = ITEMS.register("super_kmsauce", () ->
-            new Item(new Item.Properties().food(ModFoodProperties.SUPER_KMSAUCE)));
+            new Item(new Item.Properties().food(ModFoodProperties.SUPER_KMSAUCE).craftRemainder(Items.GLASS_BOTTLE)) {
+                @Override
+                public UseAnim getUseAnimation(ItemStack stack) {
+                    return UseAnim.DRINK;
+                }
+            });
 
     public static final DeferredItem<Item> SUPER_KMD = ITEMS.register("super_kmd", com.gmail.aamelis.willmod.Items.Foods.KMD.SuperKMD::new);
 

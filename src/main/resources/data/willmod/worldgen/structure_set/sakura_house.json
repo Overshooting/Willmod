@@ -1,0 +1,17 @@
+{
+  "structures": [
+    {
+      "structure": "willmod:sakura_house",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+
+    "salt": 24032024,
+
+    "spacing": 20,
+
+    "separation": 10
+  }
+}

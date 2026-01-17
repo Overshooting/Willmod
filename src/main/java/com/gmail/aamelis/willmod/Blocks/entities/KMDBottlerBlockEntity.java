@@ -84,8 +84,7 @@ public class KMDBottlerBlockEntity extends BlockEntity implements MenuProvider {
     }
 
     private boolean hasRecipe() {
-        return itemInventory.getStackInSlot(INPUT_SLOT).getItem() == ItemsInit.KMSAUCE.get() && itemInventory.getStackInSlot(OUTPUT_SLOT).getItem() == ItemsInit.KMD.get() ||
-                itemInventory.getStackInSlot(INPUT_SLOT).getItem() == ItemsInit.SUPER_KMSAUCE.get() && itemInventory.getStackInSlot(OUTPUT_SLOT).getItem() == ItemsInit.SUPER_KMD.get();
+        return itemInventory.getStackInSlot(OUTPUT_SLOT).getItem() instanceof AbstractKMD absKMDItem && itemInventory.getStackInSlot(INPUT_SLOT).getItem() == AbstractKMD.getHeldItem(absKMDItem);
     }
 
     @Override
