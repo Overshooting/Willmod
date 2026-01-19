@@ -25,6 +25,7 @@ public class WillModFinalRegistry {
         RecipesInit.register(modEventBus);
         LootModifiersInit.register(modEventBus);
         ArmorMaterialsInit.register(modEventBus);
+        StructuresInit.register(modEventBus);
 
     }
 

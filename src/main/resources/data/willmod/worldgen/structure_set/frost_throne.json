@@ -1,0 +1,17 @@
+{
+  "structures": [
+    {
+      "structure": "willmod:frost_throne",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+
+    "salt": 83165297,
+
+    "spacing": 30,
+
+    "separation": 20
+  }
+}
