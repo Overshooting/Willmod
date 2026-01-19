@@ -8,8 +8,10 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.NoiseColumn;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.heightproviders.HeightProvider;
@@ -73,7 +75,7 @@ public class FrostThroneStructure extends Structure {
         this.liquidSettings = liquidSettings;
     }
 
-    private static boolean extraSpawningChecks(GenerationContext context) {
+    private static BlockPos extraSpawningChecks(GenerationContext context) {
         ChunkPos chunkPos = context.chunkPos();
         ChunkGenerator generator = context.chunkGenerator();
         LevelHeightAccessor heightAccessor = context.heightAccessor();
@@ -84,90 +86,44 @@ public class FrostThroneStructure extends Structure {
         NoiseColumn column = generator.getBaseColumn(x, z, heightAccessor, context.randomState());
 
         int minY = generator.getMinY();
-        int maxY = 120;
+        int maxY = 100;
 
-        System.out.println("Searching valid thickness at: " + x + ", " + z + " from: " + minY + " to " + maxY);
+        int validY = -1;
 
-        int topSolidY = -1;
-        int bottomSolidY = -1;
-
-        for (int y = maxY - 1; y >= minY; y--) {
+        for (int y = minY; y <= maxY; y++) {
             BlockState state = column.getBlock(y - minY);
+            BlockState upperState = column.getBlock(y - minY + 6);
 
-            if (!state.isAir()) {
-                if (topSolidY == -1) {
-                    topSolidY = y;
-                }
-                bottomSolidY = y;
+            if (!state.isAir() && !upperState.isAir() && !state.is(Blocks.LAVA) && !upperState.is(Blocks.LAVA)) {
+                validY = y + 1;
             }
         }
 
-        System.out.println("Final thickness pos found: " + x + ", " + topSolidY + ", " + z);
-
-        // No terrain at all
-        if (topSolidY == -1) {
-            System.out.println("No terrain found: " + topSolidY);
-            return false;
+        if (validY == -1) {
+            return null;
+        } else {
+            return new BlockPos(x, validY, z);
         }
-
-        return (topSolidY - bottomSolidY) >= 5;
     }
 
     @Override
     public Optional<GenerationStub> findGenerationPoint(GenerationContext context) {
+        BlockPos validSpawnPos = extraSpawningChecks(context);
 
-        if (!extraSpawningChecks(context)) {
+        if (validSpawnPos == null) {
             return Optional.empty();
+        } else {
+            validSpawnPos = extraSpawningChecks(context);
         }
-
-        ChunkPos chunkPos = context.chunkPos();
-        ChunkGenerator generator = context.chunkGenerator();
-        LevelHeightAccessor heightAccessor = context.heightAccessor();
-
-        int x = chunkPos.getMiddleBlockX();
-        int z = chunkPos.getMiddleBlockZ();
-
-        var column = generator.getBaseColumn(x, z, heightAccessor, context.randomState());
-
-        int minY = generator.getMinY();
-        int maxY = 120;
-
-        System.out.println("Searching valid location at: " + x + ", " + z + " from: " + minY + " to " + maxY);
-
-        int topSolidY = -1;
-
-        for (int y = maxY - 1; y >= minY; y--) {
-            if (!column.getBlock(y - minY).isAir()) {
-                System.out.println("Found first valid block at: " + x + ", " + y + ", " + z);
-                topSolidY = y;
-                break;
-            }
-        }
-
-        if (topSolidY == -1) return Optional.empty();
-
-        // Structure dimensions
-        int structureHeight = 5;
-        int burialDepth = 5;
-
-        int startY = topSolidY - burialDepth - structureHeight;
-
-        BlockPos startPos = new BlockPos(
-                chunkPos.getMinBlockX(),
-                startY,
-                chunkPos.getMinBlockZ()
-        );
-
-        System.out.println("StartPos for Frost Throne found: " + chunkPos.getMinBlockX() + ", " + startY + ", " + chunkPos.getMinBlockZ());
 
         return JigsawPlacement.addPieces(
                 context,
                 this.startPool,
                 Optional.empty(),
                 this.size,
-                startPos,
-                false,                       // DO NOT expand / roof snap
-                Optional.empty(),            // NEVER use heightmaps in Nether
+                validSpawnPos,
+                false,
+                Optional.empty(),
                 this.maxDistanceFromCenter,
                 PoolAliasLookup.EMPTY,
                 this.dimensionPadding,
