@@ -88,6 +88,7 @@ public class CreativeTabsInit {
                         AbstractKMD.setAmount(superKMDItemStack, 0);
 
                         output.accept(superKMDItemStack);
+                        output.accept(ItemsInit.NEW_BOTTLE);
 
                     }).build()));
 
@@ -104,6 +105,7 @@ public class CreativeTabsInit {
                         output.accept(ItemsInit.CABBAGE);
                         output.accept(ItemsInit.KMSAUCE);
                         output.accept(ItemsInit.SUPER_KMSAUCE);
+                        output.accept(ItemsInit.NEW_WATER_BOTTLE);
 
                     }).build()));
 

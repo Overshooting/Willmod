@@ -51,6 +51,18 @@ public class JEIWillmodPlugin implements IModPlugin {
         registration.addIngredientInfo(new ItemStack(ItemsInit.EXTINGUISHED_FROST_CORE.get()),
                 VanillaTypes.ITEM_STACK,
                 Component.translatable("jei.willmod.igloo_info"));
+
+        registration.addIngredientInfo(new ItemStack(ItemsInit.KMD.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.willmod.kmd_instructions"));
+
+        registration.addIngredientInfo(new ItemStack(ItemsInit.SUPER_KMD.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.willmod.super_kmd_instructions"));
+
+        registration.addIngredientInfo(new ItemStack(ItemsInit.NEW_WATER_BOTTLE.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.willmod.new_water_bottle_info"));
     }
 
     @Override

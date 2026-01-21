@@ -28,6 +28,8 @@
   "item.willmod.kmd": "Kimchi Marination Device",
   "item.willmod.super_kmsauce": "Ichor of the Frost King",
   "item.willmod.super_kmd": "Frost-Hardened KMD",
+  "item.willmod.new_bottle": "Better Glass Bottle",
+  "item.willmod.new_water_bottle": "Stackable Water Bottle",
 
   "tooltip.willmod.will_phone": "Call the Biggest Defender",
   "tooltip.willmod.will_pickaxe": "Strips William's Essence from Ice Blocks",
@@ -35,6 +37,7 @@
   "tooltip.willmod.will_sword": "Ikorose, Shinso",
   "tooltip.willmod.better_will_pickaxe": "Pierce the Veil",
   "tooltip.willmod.will_axe": "Ryu Will Reign",
+  "tooltip.willmod.new_bottle": "Creates stackable water bottles when used on a source block",
 
   "block.willmod.williams_face_block": "William's Face",
   "block.willmod.will_forge_block": "William Forge",
@@ -66,5 +69,6 @@
   "jei.willmod.will_shard_info": "Snowstorms infuse the Strays with frosty energy",
   "jei.willmod.igloo_info": "Long forgotten igloos emanate a chilling aura",
   "jei.willmod.kmd_instructions": "Fill with Kimchi Marination Sauce in the KMD Bottler",
-  "jei.willmod.super_kmd_instructions": "Fill with Ichor of the Frost King in the KMD Bottler"
+  "jei.willmod.super_kmd_instructions": "Fill with Ichor of the Frost King in the KMD Bottler",
+  "jei.willmod.new_water_bottle_info": "Right click a water source block with a Better Glass Bottle"
 }

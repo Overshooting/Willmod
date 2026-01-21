@@ -1,0 +1,17 @@
+{
+  "structures": [
+    {
+      "structure": "willmod:kmd",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+
+    "salt": 80752986,
+
+    "spacing": 50,
+
+    "separation": 30
+  }
+}

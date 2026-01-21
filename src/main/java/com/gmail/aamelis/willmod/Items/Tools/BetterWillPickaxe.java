@@ -9,6 +9,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.event.ItemAttributeModifierEvent;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -26,7 +27,7 @@ public class BetterWillPickaxe extends PickaxeItem {
     @Override
     @ParametersAreNonnullByDefault
     public void appendHoverText(ItemStack stack, TooltipContext ttc, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("willmod.tooltip.better_will_pickaxe").withStyle(ChatFormatting.DARK_PURPLE));
+        tooltip.add(Component.translatable("tooltip.willmod.better_will_pickaxe").withStyle(ChatFormatting.DARK_PURPLE));
 
         super.appendHoverText(stack, ttc, tooltip, flagIn);
     }

@@ -1,6 +1,7 @@
 package com.gmail.aamelis.willmod.Registries;
 
 import com.gmail.aamelis.willmod.Items.Foods.ModFoodProperties;
+import com.gmail.aamelis.willmod.Items.Foods.NewWaterBottle;
 import com.gmail.aamelis.willmod.Items.Ingredients.*;
 import com.gmail.aamelis.willmod.Items.Tools.*;
 import com.gmail.aamelis.willmod.WillModFinalRegistry;
@@ -105,6 +106,10 @@ public class ItemsInit {
             });
 
     public static final DeferredItem<Item> SUPER_KMD = ITEMS.register("super_kmd", com.gmail.aamelis.willmod.Items.Foods.KMD.SuperKMD::new);
+
+    public static final DeferredItem<BottleItem> NEW_BOTTLE = ITEMS.register("new_bottle", NewBottle::new);
+
+    public static final DeferredItem<Item> NEW_WATER_BOTTLE = ITEMS.register("new_water_bottle", NewWaterBottle::new);
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

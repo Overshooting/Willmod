@@ -1,7 +1,7 @@
 {
   "type": "willmod:frost_throne_structure",
 
-  "start_pool": "willmod:frost_throne",
+  "start_pool": "willmod:frost_shrine",
 
   "size": 1,
 
