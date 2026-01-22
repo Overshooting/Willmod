@@ -7,6 +7,7 @@ import com.gmail.aamelis.willmod.Items.Tools.*;
 import com.gmail.aamelis.willmod.WillModFinalRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
@@ -81,35 +82,47 @@ public class ItemsInit {
     public static final DeferredItem<Item> CABBAGE = ITEMS.register("cabbage", () ->
             new Item(new Item.Properties().food(ModFoodProperties.CABBAGE)));
 
-    public static final DeferredItem<Item> KMSAUCE = ITEMS.register("kmsauce", () ->
-            new Item(new Item.Properties().food(ModFoodProperties.KMSAUCE).craftRemainder(Items.GLASS_BOTTLE)) {
-                @Override
-                public UseAnim getUseAnimation(ItemStack stack) {
-                    return UseAnim.DRINK;
-                }
-            });
-
     public static final DeferredItem<Item> GARLIC_SEEDS = ITEMS.register("garlic_seeds", () ->
             new ItemNameBlockItem(BlocksInit.GARLIC_CROP.get(), new Item.Properties()));
 
     public static final DeferredItem<Item> CABBAGE_SEEDS = ITEMS.register("cabbage_seeds", () ->
             new ItemNameBlockItem(BlocksInit.CABBAGE_CROP.get(), new Item.Properties()));
 
-    public static final DeferredItem<Item> KMD = ITEMS.register("kmd", com.gmail.aamelis.willmod.Items.Foods.KMD.KMD::new);
+    public static final DeferredItem<BottleItem> NEW_BOTTLE = ITEMS.register("new_bottle", NewBottle::new);
 
-    public static final DeferredItem<Item> SUPER_KMSAUCE = ITEMS.register("super_kmsauce", () ->
-            new Item(new Item.Properties().food(ModFoodProperties.SUPER_KMSAUCE).craftRemainder(Items.GLASS_BOTTLE)) {
+    public static final DeferredItem<Item> NEW_WATER_BOTTLE = ITEMS.register("new_water_bottle", NewWaterBottle::new);
+
+    public static final DeferredItem<Item> KMSAUCE = ITEMS.register("kmsauce", () ->
+            new Item(new Item.Properties()
+                    .food(new FoodProperties.Builder()
+                            .nutrition(2)
+                            .saturationModifier(0.25f)
+                            .alwaysEdible()
+                            .usingConvertsTo(NEW_BOTTLE.get()).build())
+                    .craftRemainder(NEW_BOTTLE.get())) {
                 @Override
                 public UseAnim getUseAnimation(ItemStack stack) {
                     return UseAnim.DRINK;
                 }
             });
 
+    public static final DeferredItem<Item> SUPER_KMSAUCE = ITEMS.register("super_kmsauce", () ->
+            new Item(new Item.Properties()
+                    .food(new FoodProperties.Builder()
+                            .nutrition(5)
+                            .saturationModifier(0.45f)
+                            .alwaysEdible()
+                            .usingConvertsTo(NEW_BOTTLE.get()).build())
+                    .craftRemainder(NEW_BOTTLE.get())) {
+                @Override
+                public UseAnim getUseAnimation(ItemStack stack) {
+                    return UseAnim.DRINK;
+                }
+            });
+
+    public static final DeferredItem<Item> KMD = ITEMS.register("kmd", com.gmail.aamelis.willmod.Items.Foods.KMD.KMD::new);
+
     public static final DeferredItem<Item> SUPER_KMD = ITEMS.register("super_kmd", com.gmail.aamelis.willmod.Items.Foods.KMD.SuperKMD::new);
-
-    public static final DeferredItem<BottleItem> NEW_BOTTLE = ITEMS.register("new_bottle", NewBottle::new);
-
-    public static final DeferredItem<Item> NEW_WATER_BOTTLE = ITEMS.register("new_water_bottle", NewWaterBottle::new);
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

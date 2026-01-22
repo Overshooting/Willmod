@@ -1,9 +1,7 @@
 package com.gmail.aamelis.willmod.Blocks.entities;
 
 import com.gmail.aamelis.willmod.Items.Foods.KMD.AbstractKMD;
-import com.gmail.aamelis.willmod.Items.Foods.KMD.KMD;
 import com.gmail.aamelis.willmod.Registries.BlockEntitiesInit;
-import com.gmail.aamelis.willmod.Registries.ItemsInit;
 import com.gmail.aamelis.willmod.Screens.KMDBottlerMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -18,6 +16,7 @@ import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -27,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class KMDBottlerBlockEntity extends BlockEntity implements MenuProvider {
 
-    public final ItemStackHandler itemInventory =  new ItemStackHandler(2) {
+    public final ItemStackHandler itemInventory =  new ItemStackHandler(3) {
         @Override
         protected void onContentsChanged(int slot) {
             setChanged();
@@ -40,7 +39,8 @@ public class KMDBottlerBlockEntity extends BlockEntity implements MenuProvider {
     };
 
     private static final int INPUT_SLOT = 0;
-    private static final int OUTPUT_SLOT = 1;
+    private static final int KMD_SLOT = 1;
+    private static final int OUTPUT_SLOT = 2;
 
 
     public KMDBottlerBlockEntity(BlockPos pos, BlockState blockState) {
@@ -69,22 +69,35 @@ public class KMDBottlerBlockEntity extends BlockEntity implements MenuProvider {
 
     public void tick(Level level, BlockPos pos, BlockState state) {
         if (!level.isClientSide() && hasRecipe()) {
-            addItem(itemInventory.getStackInSlot(INPUT_SLOT), itemInventory.getStackInSlot(OUTPUT_SLOT));
+            addItem(itemInventory.getStackInSlot(INPUT_SLOT), itemInventory.getStackInSlot(KMD_SLOT), itemInventory.getStackInSlot(OUTPUT_SLOT));
             setChanged();
             level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
         }
     }
 
-    private void addItem(ItemStack inputItem, ItemStack outputItem) {
-        if (!(AbstractKMD.isFull(outputItem))) {
+    private void addItem(ItemStack inputItem, ItemStack kmdItem, ItemStack outputItem) {
+        if (!(AbstractKMD.isFull(kmdItem))) {
             itemInventory.setStackInSlot(INPUT_SLOT, new ItemStack(inputItem.getItem(), inputItem.getCount() - 1));
-            AbstractKMD.incrementFoodCount(outputItem);
-            itemInventory.setStackInSlot(OUTPUT_SLOT, outputItem);
+            AbstractKMD.incrementFoodCount(kmdItem);
+            itemInventory.setStackInSlot(KMD_SLOT, kmdItem);
+            if (outputItem.isEmpty()) {
+                itemInventory.setStackInSlot(OUTPUT_SLOT, new ItemStack(AbstractKMD.getHeldItem((AbstractKMD)kmdItem.getItem()).getCraftingRemainingItem()));
+            } else {
+                itemInventory.setStackInSlot(OUTPUT_SLOT, new ItemStack(outputItem.getItem(), outputItem.getCount() + 1));
+            }
         }
     }
 
     private boolean hasRecipe() {
-        return itemInventory.getStackInSlot(OUTPUT_SLOT).getItem() instanceof AbstractKMD absKMDItem && itemInventory.getStackInSlot(INPUT_SLOT).getItem() == AbstractKMD.getHeldItem(absKMDItem);
+        Item kmdSlotItem = itemInventory.getStackInSlot(KMD_SLOT).getItem();
+        Item inputSlotItem = itemInventory.getStackInSlot(INPUT_SLOT).getItem();
+        ItemStack outputStack = itemInventory.getStackInSlot(OUTPUT_SLOT);
+
+        return kmdSlotItem instanceof AbstractKMD absKMDItem
+                && inputSlotItem == AbstractKMD.getHeldItem(absKMDItem)
+                && ((outputStack.getItem() == AbstractKMD.getHeldItem(absKMDItem).getCraftingRemainingItem()
+                    && outputStack.getCount() < outputStack.getMaxStackSize())
+                    || itemInventory.getStackInSlot(OUTPUT_SLOT).isEmpty());
     }
 
     @Override

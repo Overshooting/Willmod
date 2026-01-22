@@ -26,6 +26,7 @@ public class WillModFinalRegistry {
         LootModifiersInit.register(modEventBus);
         ArmorMaterialsInit.register(modEventBus);
         StructuresInit.register(modEventBus);
+        EffectsInit.register(modEventBus);
 
     }
 

@@ -9,7 +9,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.neoforged.neoforge.items.SlotItemHandler;
@@ -22,7 +21,7 @@ public class KMDBottlerMenu extends AbstractContainerMenu {
     private static final int VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT;
     private static final int VANILLA_FIRST_SLOT_INDEX = 0;
     private static final int TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT;
-    private static final int TE_INVENTORY_SLOT_COUNT = 2;
+    private static final int TE_INVENTORY_SLOT_COUNT = 3;
 
     public final KMDBottlerBlockEntity blockEntity;
     private final Level level;
@@ -50,6 +49,12 @@ public class KMDBottlerMenu extends AbstractContainerMenu {
             @Override
             public boolean mayPlace(ItemStack stack) {
                 return stack.getItem() == ItemsInit.KMD.get() || stack.getItem() == ItemsInit.SUPER_KMD.get();
+            }
+        });
+        this.addSlot(new SlotItemHandler(blockEntity.itemInventory, 2, 136, 34) {
+            @Override
+            public boolean mayPlace(ItemStack stack) {
+                return false;
             }
         });
     }

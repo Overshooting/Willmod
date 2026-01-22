@@ -1,9 +1,11 @@
 package com.gmail.aamelis.willmod.Items.Ingredients;
 
+import com.gmail.aamelis.willmod.Registries.EffectsInit;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -23,7 +25,7 @@ public class ActivatedFrostCore extends Item {
     public InteractionResultHolder<ItemStack> use(Level p_41432_, Player p_41433_, InteractionHand p_41434_) {
         ItemStack itemstack = p_41433_.getItemInHand(p_41434_);
         if (!p_41432_.isClientSide()) {
-            p_41433_.setTicksFrozen(400);
+            p_41433_.addEffect(new MobEffectInstance(EffectsInit.FREEZING_EFFECT, 30));
             return InteractionResultHolder.success(itemstack);
         }
         return InteractionResultHolder.pass(itemstack);
