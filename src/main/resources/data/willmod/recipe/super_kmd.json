@@ -3,13 +3,19 @@
   "category": "misc",
   "key": {
     "A": {
-      "item": "willmod:will_shard"
+      "item": "willmod:activated_frost_core"
+    },
+    "B": {
+      "item": "willmod:will_forge_support_block"
+    },
+    "C": {
+      "item": "willmod:kmd"
     }
   },
   "pattern": [
     " A ",
-    " A ",
-    "   "
+    "BCB",
+    "BBB"
   ],
   "result": {
     "count": 1,
