@@ -10,6 +10,4 @@ public class ModFoodProperties {
 
     public static final FoodProperties CABBAGE = new FoodProperties.Builder().nutrition(1).saturationModifier(0.1f).fast().build();
 
-
-
 }

@@ -20,7 +20,7 @@ public class WillAxe extends AxeItem {
     @Override
     @ParametersAreNonnullByDefault
     public void appendHoverText(ItemStack stack, TooltipContext ttc, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.literal("Ryu Will Reign").withStyle(ChatFormatting.DARK_PURPLE));
+        tooltip.add(Component.translatable("tooltip.willmod.will_axe").withStyle(ChatFormatting.DARK_PURPLE));
 
         super.appendHoverText(stack, ttc, tooltip, flagIn);
     }

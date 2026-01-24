@@ -1,6 +1,7 @@
 package com.gmail.aamelis.willmod.compat;
 
 import com.gmail.aamelis.willmod.Recipes.WillForgeRecipe;
+import com.gmail.aamelis.willmod.Registries.BlocksInit;
 import com.gmail.aamelis.willmod.Registries.ItemsInit;
 import com.gmail.aamelis.willmod.Registries.RecipesInit;
 import com.gmail.aamelis.willmod.Screens.WillForgeScreen;
@@ -50,7 +51,23 @@ public class JEIWillmodPlugin implements IModPlugin {
 
         registration.addIngredientInfo(new ItemStack(ItemsInit.EXTINGUISHED_FROST_CORE.get()),
                 VanillaTypes.ITEM_STACK,
-                Component.translatable("jei.willmod.igloo_info"));
+                Component.translatable("jei.willmod.frost_core_info"));
+
+        registration.addIngredientInfo(new ItemStack(ItemsInit.KMD.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.willmod.kmd_instructions"));
+
+        registration.addIngredientInfo(new ItemStack(ItemsInit.SUPER_KMD.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.willmod.super_kmd_instructions"));
+
+        registration.addIngredientInfo(new ItemStack(ItemsInit.NEW_WATER_BOTTLE.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.willmod.new_water_bottle_info"));
+
+        registration.addIngredientInfo(new ItemStack(BlocksInit.KMD_BOTTLER_BLOCK.get()),
+                VanillaTypes.ITEM_STACK,
+                Component.translatable("jei.willmod.kmd_bottler_info"));
     }
 
     @Override

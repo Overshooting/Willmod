@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "willmod:cabbage"
+    },
+    {
+      "item": "willmod:kmsauce"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "willmod:kimchi"
+  }
+}

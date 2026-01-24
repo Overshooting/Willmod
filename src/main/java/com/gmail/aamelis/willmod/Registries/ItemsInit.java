@@ -1,17 +1,21 @@
 package com.gmail.aamelis.willmod.Registries;
 
 import com.gmail.aamelis.willmod.Items.Foods.ModFoodProperties;
+import com.gmail.aamelis.willmod.Items.Foods.NewWaterBottle;
 import com.gmail.aamelis.willmod.Items.Ingredients.*;
 import com.gmail.aamelis.willmod.Items.Tools.*;
 import com.gmail.aamelis.willmod.WillModFinalRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.List;
 
 public class ItemsInit {
     public static final DeferredRegister.Items ITEMS =
@@ -35,6 +39,9 @@ public class ItemsInit {
                     return super.getName(stack).copy().withStyle(ChatFormatting.DARK_AQUA);
                 }
             });
+
+    public static final DeferredItem<Item> KMD_BOTTLER_BLOCK_ITEM = ITEMS.register("kmd_bottler_block",
+            () -> createBlockItem(BlocksInit.KMD_BOTTLER_BLOCK));
 
     public static final DeferredItem<Item> WILL_SHARD = ITEMS.register("will_shard", WillShard::new);
 
@@ -69,7 +76,12 @@ public class ItemsInit {
             new WillArmor(ArmorItem.Type.BOOTS));
 
     public static final DeferredItem<Item> KIMCHI = ITEMS.register("kimchi", () ->
-            new Item(new Item.Properties().food(ModFoodProperties.KIMCHI)));
+            new Item(new Item.Properties().food(ModFoodProperties.KIMCHI)) {
+                @Override
+                public Component getName(ItemStack stack) {
+                    return super.getName(stack).copy().withStyle(ChatFormatting.GOLD);
+                }
+            });
 
     public static final DeferredItem<Item> GARLIC = ITEMS.register("garlic", () ->
             new Item(new Item.Properties().food(ModFoodProperties.GARLIC)));
@@ -82,6 +94,62 @@ public class ItemsInit {
 
     public static final DeferredItem<Item> CABBAGE_SEEDS = ITEMS.register("cabbage_seeds", () ->
             new ItemNameBlockItem(BlocksInit.CABBAGE_CROP.get(), new Item.Properties()));
+
+    public static final DeferredItem<BottleItem> NEW_BOTTLE = ITEMS.register("new_bottle", NewBottle::new);
+
+    public static final DeferredItem<Item> NEW_WATER_BOTTLE = ITEMS.register("new_water_bottle", NewWaterBottle::new);
+
+    public static final DeferredItem<Item> KMSAUCE = ITEMS.register("kmsauce", () ->
+            new Item(new Item.Properties()
+                    .food(new FoodProperties.Builder()
+                            .nutrition(2)
+                            .saturationModifier(0.25f)
+                            .alwaysEdible()
+                            .usingConvertsTo(NEW_BOTTLE.get()).build())
+                    .craftRemainder(NEW_BOTTLE.get())) {
+                @Override
+                public UseAnim getUseAnimation(ItemStack stack) {
+                    return UseAnim.DRINK;
+                }
+                @Override
+                public Component getName(ItemStack stack) {
+                    return super.getName(stack).copy().withStyle(ChatFormatting.BLUE);
+                }
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("tooltip.willmod.kmsauce").withStyle(ChatFormatting.GRAY));
+
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
+
+    public static final DeferredItem<Item> SUPER_KMSAUCE = ITEMS.register("super_kmsauce", () ->
+            new Item(new Item.Properties()
+                    .food(new FoodProperties.Builder()
+                            .nutrition(8)
+                            .saturationModifier(0.5f)
+                            .alwaysEdible()
+                            .usingConvertsTo(NEW_BOTTLE.get()).build())
+                    .craftRemainder(NEW_BOTTLE.get())) {
+                @Override
+                public UseAnim getUseAnimation(ItemStack stack) {
+                    return UseAnim.DRINK;
+                }
+                @Override
+                public Component getName(ItemStack stack) {
+                    return super.getName(stack).copy().withStyle(ChatFormatting.AQUA);
+                }
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("tooltip.willmod.super_kmsauce").withStyle(ChatFormatting.DARK_PURPLE));
+
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
+            });
+
+    public static final DeferredItem<Item> KMD = ITEMS.register("kmd", com.gmail.aamelis.willmod.Items.Foods.KMD.KMD::new);
+
+    public static final DeferredItem<Item> SUPER_KMD = ITEMS.register("super_kmd", com.gmail.aamelis.willmod.Items.Foods.KMD.SuperKMD::new);
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);

@@ -1,11 +1,13 @@
 package com.gmail.aamelis.willmod.Items.Tools;
 
+import com.gmail.aamelis.willmod.Registries.EffectsInit;
 import com.gmail.aamelis.willmod.Registries.SoundsInit;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -27,7 +29,7 @@ public class WillPhone extends Item {
         ItemStack itemstack = p_41433_.getItemInHand(p_41434_);
         if (!p_41432_.isClientSide()) {
             p_41432_.playSound(null, 0.1, 0.1, 0.1, SoundsInit.WILL_PHONE_USE.get(), SoundSource.MASTER, 100f, 2.5f);
-            p_41433_.setTicksFrozen(400);
+            p_41433_.addEffect(new MobEffectInstance(EffectsInit.FREEZING_EFFECT, 150));
             return InteractionResultHolder.success(itemstack);
         }
         return InteractionResultHolder.pass(itemstack);
@@ -36,7 +38,7 @@ public class WillPhone extends Item {
     @Override
     @ParametersAreNonnullByDefault
     public void appendHoverText(ItemStack stack, TooltipContext ttc, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.literal("Call the Biggest Defender").withStyle(ChatFormatting.DARK_PURPLE));
+        tooltip.add(Component.translatable("tooltip.willmod.will_phone").withStyle(ChatFormatting.DARK_PURPLE));
 
         super.appendHoverText(stack, ttc, tooltip, flagIn);
     }

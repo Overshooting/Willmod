@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "willmod:block/kmd_bottler_block"
+    }
+  }
+}

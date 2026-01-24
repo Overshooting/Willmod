@@ -1,7 +1,7 @@
 {
   "type": "minecraft:crafting_shaped",
   "category": "misc",
-  "group": "activated_frost_core",
+  "group": "will_forge",
   "key": {
     "A": {
       "item": "willmod:will_shard"

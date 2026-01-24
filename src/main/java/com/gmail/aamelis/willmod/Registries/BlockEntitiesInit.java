@@ -1,5 +1,6 @@
 package com.gmail.aamelis.willmod.Registries;
 
+import com.gmail.aamelis.willmod.Blocks.entities.KMDBottlerBlockEntity;
 import com.gmail.aamelis.willmod.Blocks.entities.WillForgeBlockEntity;
 import com.gmail.aamelis.willmod.Blocks.entities.WillForgeCoreBlockEntity;
 import com.gmail.aamelis.willmod.WillModFinalRegistry;
@@ -20,6 +21,9 @@ public class BlockEntitiesInit {
 
     public static final Supplier<BlockEntityType<WillForgeCoreBlockEntity>> WILL_FORGE_CORE_BLOCK_ENTITY = BLOCK_ENTITIES.register("will_forge_core_block_entity", () ->
             BlockEntityType.Builder.of(WillForgeCoreBlockEntity::new, BlocksInit.WILL_FORGE_CORE_BLOCK.get()).build(null));
+
+    public static final Supplier<BlockEntityType<KMDBottlerBlockEntity>> KMD_BOTTLER_BLOCK_ENTITY = BLOCK_ENTITIES.register("kmd_bottler_block_entity", () ->
+            BlockEntityType.Builder.of(KMDBottlerBlockEntity::new, BlocksInit.KMD_BOTTLER_BLOCK.get()).build(null));
 
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);

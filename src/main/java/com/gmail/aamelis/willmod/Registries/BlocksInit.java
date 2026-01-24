@@ -40,10 +40,16 @@ public class BlocksInit {
     );
 
     public static final DeferredBlock<Block> GARLIC_CROP = BLOCKS.register("garlic_crop", () ->
-            new GarlicCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)));
+            new GarlicCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)));
 
     public static final DeferredBlock<Block> CABBAGE_CROP = BLOCKS.register("cabbage_crop", () ->
-            new GarlicCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.BEETROOTS)));
+            new CabbageCropBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.WHEAT)));
+
+    public static final DeferredBlock<Block> KMD_BOTTLER_BLOCK = BLOCKS.register("kmd_bottler_block", () -> new KMDBottlerBlock(
+            BlockBehaviour.Properties.of()
+                    .strength(0.5f)
+                    .mapColor(MapColor.COLOR_BROWN)
+                    .sound(SoundType.COPPER_BULB)));
 
     public static void register(IEventBus eventBus) {
         BLOCKS.register(eventBus);

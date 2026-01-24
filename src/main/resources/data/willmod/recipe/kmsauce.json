@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "willmod:garlic"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "tag": "willmod:water_bottles"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "willmod:kmsauce"
+  }
+}

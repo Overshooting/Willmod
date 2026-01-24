@@ -3,6 +3,7 @@
   "item.willmod.will_forge_block": "William's Forge",
   "item.willmod.will_forge_support_block": "William's Forge Support",
   "item.willmod.will_forge_core_block": "Core of William's Forge",
+  "item.willmod.kmd_bottler_block": "KMD Bottler",
 
   "item.willmod.will_phone": "Willphone",
   "item.willmod.will_shard": "Shard of William",
@@ -23,6 +24,22 @@
   "item.willmod.garlic_seeds": "Garlic Seeds",
   "item.willmod.cabbage": "Cabbage",
   "item.willmod.cabbage_seeds": "Cabbage Seeds",
+  "item.willmod.kmsauce": "Kimchi Marination Sauce",
+  "item.willmod.kmd": "Kimchi Marination Device",
+  "item.willmod.super_kmsauce": "Ichor of the Frost King",
+  "item.willmod.super_kmd": "Frost-Hardened KMD",
+  "item.willmod.new_bottle": "Better Glass Bottle",
+  "item.willmod.new_water_bottle": "Stackable Water Bottle",
+
+  "tooltip.willmod.will_phone": "Call the Biggest Defender",
+  "tooltip.willmod.will_pickaxe": "Strips William's Essence from Ice Blocks",
+  "tooltip.willmod.activated_frost_core": "Absolute Zero",
+  "tooltip.willmod.will_sword": "Ikorose, Shinso",
+  "tooltip.willmod.better_will_pickaxe": "Pierce the Veil",
+  "tooltip.willmod.will_axe": "Ryu Will Reign",
+  "tooltip.willmod.new_bottle": "Creates stackable water bottles when used on a source block",
+  "tooltip.willmod.kmsauce": "Refreshing",
+  "tooltip.willmod.super_kmsauce": "Chillingly Invigorating",
 
   "block.willmod.williams_face_block": "William's Face",
   "block.willmod.will_forge_block": "William Forge",
@@ -30,13 +47,18 @@
   "block.willmod.will_forge_core_block": "Core of William's Forge",
   "block.willmod.garlic_crop": "Garlic",
   "block.willmod.cabbage_crop": "Cabbage",
+  "block.willmod.kmd_bottler_block": "KMD Bottler",
 
   "container.willmod.will_forge": "William Forge",
+  "container.willmod.kmd_bottler": "KMD Bottler",
 
   "creativetab.willmod.all_ingredients": "Willmod Ingredients",
   "creativetab.willmod.all_blocks": "Willmod Blocks",
   "creativetab.willmod.all_tools": "Willmod Tools",
   "creativetab.willmod.all_foods": "Willmod Foods",
+
+  "effect.willmod.freezing_effect": "Freezing",
+  "effect.willmod.will_armor_effect": "Dream Defender",
 
   "painting.willmod.william_defender.title": "William's Biggest Defender",
   "painting.willmod.william_defender.author": "Overshoot52",
@@ -48,7 +70,20 @@
   "painting.willmod.william_happy.author": "Overshoot52",
   "painting.willmod.william_stare.title": "He is Disappointed...",
   "painting.willmod.william_stare.author": "Overshoot52",
+  "painting.willmod.betrayal.title": "We good now tho",
+  "painting.willmod.betrayal.author": "Overshoot52",
+  "painting.willmod.clown_meetup.title": "7 Tickets to Loser Central",
+  "painting.willmod.clown_meetup.author": "Overshoot52",
+  "painting.willmod.pretender.title": "Imitation",
+  "painting.willmod.pretender.author": "Overshoot52",
+  "painting.willmod.tlr.title": "Three-Legged Ryu",
+  "painting.willmod.tlr.author": "Overshoot52",
+
 
   "jei.willmod.will_shard_info": "Snowstorms infuse the Strays with frosty energy",
-  "jei.willmod.igloo_info": "Long forgotten igloos emanate a chilling aura"
+  "jei.willmod.frost_core_info": "Sealed beneath the sand in the valley of souls",
+  "jei.willmod.kmd_instructions": "Fill with Kimchi Marination Sauce in the KMD Bottler",
+  "jei.willmod.super_kmd_instructions": "Fill with Ichor of the Frost King in the KMD Bottler",
+  "jei.willmod.new_water_bottle_info": "Right click a water source block with a Better Glass Bottle",
+  "jei.willmod.kmd_bottler_info": "Found in the forgotten Shogun's residence"
 }

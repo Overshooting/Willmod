@@ -1,5 +1,6 @@
 package com.gmail.aamelis.willmod.Registries;
 
+import com.gmail.aamelis.willmod.Items.Foods.KMD.AbstractKMD;
 import com.gmail.aamelis.willmod.WillModFinalRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
@@ -21,10 +22,8 @@ public class CreativeTabsInit {
     public static final Supplier<CreativeModeTab> ALL_INGREDIENTS_TAB = CREATIVE_MODE_TABS.register("willmod_all_ingredients_tab",
             () -> CreativeModeTab.builder()
                     .icon(() -> new ItemStack(ItemsInit.WILL_SHARD.get()))
-                    .title(Component.translatable("creativetab.willmod.all_items"))
+                    .title(Component.translatable("creativetab.willmod.all_ingredients"))
                     .displayItems((itemDisplayParameters, output) -> {
-                        output.accept(ItemsInit.WILL_PHONE);
-                        output.accept(ItemsInit.WILL_PICKAXE);
                         output.accept(ItemsInit.WILL_SHARD);
                         output.accept(ItemsInit.EXTINGUISHED_FROST_CORE);
                         output.accept(ItemsInit.ACTIVATED_FROST_CORE);
@@ -43,6 +42,7 @@ public class CreativeTabsInit {
                         output.accept(BlocksInit.WILL_FORGE_BLOCK);
                         output.accept(BlocksInit.WILL_FORGE_SUPPORT_BLOCK);
                         output.accept(BlocksInit.WILL_FORGE_CORE_BLOCK);
+                        output.accept(BlocksInit.KMD_BOTTLER_BLOCK);
 
                     }).build());
 
@@ -54,6 +54,7 @@ public class CreativeTabsInit {
                     .displayItems((itemDisplayParameters, output) -> {
                         var enchants = Minecraft.getInstance().level.registryAccess().registryOrThrow(Registries.ENCHANTMENT);
 
+                        output.accept(ItemsInit.WILL_PHONE);
                         output.accept(ItemsInit.WILL_PICKAXE);
                         output.accept(ItemsInit.WILL_SWORD);
                         output.accept(ItemsInit.WILL_PHONE);
@@ -73,6 +74,17 @@ public class CreativeTabsInit {
 
                         output.accept(willBootsItemStack);
 
+                        ItemStack KMDItemStack = new ItemStack(ItemsInit.KMD.get());
+                        AbstractKMD.setAmount(KMDItemStack, 0);
+
+                        output.accept(KMDItemStack);
+
+                        ItemStack superKMDItemStack = new ItemStack(ItemsInit.SUPER_KMD.get());
+                        AbstractKMD.setAmount(superKMDItemStack, 0);
+
+                        output.accept(superKMDItemStack);
+                        output.accept(ItemsInit.NEW_BOTTLE);
+
                     }).build()));
 
     public static final Supplier<CreativeModeTab> ALL_FOODS_TAB = CREATIVE_MODE_TABS.register("willmod_all_foods_tab",
@@ -86,6 +98,9 @@ public class CreativeTabsInit {
                         output.accept(ItemsInit.GARLIC_SEEDS);
                         output.accept(ItemsInit.CABBAGE_SEEDS);
                         output.accept(ItemsInit.CABBAGE);
+                        output.accept(ItemsInit.KMSAUCE);
+                        output.accept(ItemsInit.SUPER_KMSAUCE);
+                        output.accept(ItemsInit.NEW_WATER_BOTTLE);
 
                     }).build()));
 
