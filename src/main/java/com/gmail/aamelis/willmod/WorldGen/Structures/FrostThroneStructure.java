@@ -6,9 +6,7 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ChunkPos;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.LevelHeightAccessor;
 import net.minecraft.world.level.NoiseColumn;
 import net.minecraft.world.level.block.Blocks;
@@ -85,14 +83,14 @@ public class FrostThroneStructure extends Structure {
 
         NoiseColumn column = generator.getBaseColumn(x, z, heightAccessor, context.randomState());
 
-        int minY = generator.getMinY();
-        int maxY = 100;
+        int minY = 30;
+        int maxY = 80;
 
         int validY = -1;
 
         for (int y = minY; y <= maxY; y++) {
-            BlockState state = column.getBlock(y - minY);
-            BlockState upperState = column.getBlock(y - minY + 6);
+            BlockState state = column.getBlock(y);
+            BlockState upperState = column.getBlock(y+ 6);
 
             if (!state.isAir() && !upperState.isAir() && !state.is(Blocks.LAVA) && !upperState.is(Blocks.LAVA)) {
                 validY = y + 1;

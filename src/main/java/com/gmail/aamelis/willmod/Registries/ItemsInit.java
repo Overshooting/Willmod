@@ -15,6 +15,8 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.List;
+
 public class ItemsInit {
     public static final DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(WillModFinalRegistry.MODID);
@@ -74,7 +76,12 @@ public class ItemsInit {
             new WillArmor(ArmorItem.Type.BOOTS));
 
     public static final DeferredItem<Item> KIMCHI = ITEMS.register("kimchi", () ->
-            new Item(new Item.Properties().food(ModFoodProperties.KIMCHI)));
+            new Item(new Item.Properties().food(ModFoodProperties.KIMCHI)) {
+                @Override
+                public Component getName(ItemStack stack) {
+                    return super.getName(stack).copy().withStyle(ChatFormatting.GOLD);
+                }
+            });
 
     public static final DeferredItem<Item> GARLIC = ITEMS.register("garlic", () ->
             new Item(new Item.Properties().food(ModFoodProperties.GARLIC)));
@@ -104,19 +111,39 @@ public class ItemsInit {
                 public UseAnim getUseAnimation(ItemStack stack) {
                     return UseAnim.DRINK;
                 }
+                @Override
+                public Component getName(ItemStack stack) {
+                    return super.getName(stack).copy().withStyle(ChatFormatting.BLUE);
+                }
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("tooltip.willmod.kmsauce").withStyle(ChatFormatting.GRAY));
+
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
+                }
             });
 
     public static final DeferredItem<Item> SUPER_KMSAUCE = ITEMS.register("super_kmsauce", () ->
             new Item(new Item.Properties()
                     .food(new FoodProperties.Builder()
-                            .nutrition(5)
-                            .saturationModifier(0.45f)
+                            .nutrition(8)
+                            .saturationModifier(0.5f)
                             .alwaysEdible()
                             .usingConvertsTo(NEW_BOTTLE.get()).build())
                     .craftRemainder(NEW_BOTTLE.get())) {
                 @Override
                 public UseAnim getUseAnimation(ItemStack stack) {
                     return UseAnim.DRINK;
+                }
+                @Override
+                public Component getName(ItemStack stack) {
+                    return super.getName(stack).copy().withStyle(ChatFormatting.AQUA);
+                }
+                @Override
+                public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+                    tooltipComponents.add(Component.translatable("tooltip.willmod.super_kmsauce").withStyle(ChatFormatting.DARK_PURPLE));
+
+                    super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
                 }
             });
 

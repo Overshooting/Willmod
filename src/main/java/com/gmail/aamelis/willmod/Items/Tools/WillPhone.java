@@ -29,7 +29,7 @@ public class WillPhone extends Item {
         ItemStack itemstack = p_41433_.getItemInHand(p_41434_);
         if (!p_41432_.isClientSide()) {
             p_41432_.playSound(null, 0.1, 0.1, 0.1, SoundsInit.WILL_PHONE_USE.get(), SoundSource.MASTER, 100f, 2.5f);
-            p_41433_.addEffect(new MobEffectInstance(EffectsInit.FREEZING_EFFECT, 30));
+            p_41433_.addEffect(new MobEffectInstance(EffectsInit.FREEZING_EFFECT, 150));
             return InteractionResultHolder.success(itemstack);
         }
         return InteractionResultHolder.pass(itemstack);

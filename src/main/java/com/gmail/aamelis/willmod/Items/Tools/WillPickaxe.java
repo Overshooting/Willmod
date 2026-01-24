@@ -1,5 +1,6 @@
 package com.gmail.aamelis.willmod.Items.Tools;
 
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -16,7 +17,7 @@ public class WillPickaxe extends PickaxeItem {
     @Override
     @ParametersAreNonnullByDefault
     public void appendHoverText(ItemStack stack, TooltipContext ttc, List<Component> tooltip, TooltipFlag flagIn) {
-        tooltip.add(Component.translatable("tooltip.willmod.will_pickaxe"));
+        tooltip.add(Component.translatable("tooltip.willmod.will_pickaxe").withStyle(ChatFormatting.GRAY));
 
         super.appendHoverText(stack, ttc, tooltip, flagIn);
     }

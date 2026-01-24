@@ -38,6 +38,8 @@
   "tooltip.willmod.better_will_pickaxe": "Pierce the Veil",
   "tooltip.willmod.will_axe": "Ryu Will Reign",
   "tooltip.willmod.new_bottle": "Creates stackable water bottles when used on a source block",
+  "tooltip.willmod.kmsauce": "Refreshing",
+  "tooltip.willmod.super_kmsauce": "Chillingly Invigorating",
 
   "block.willmod.williams_face_block": "William's Face",
   "block.willmod.will_forge_block": "William Forge",

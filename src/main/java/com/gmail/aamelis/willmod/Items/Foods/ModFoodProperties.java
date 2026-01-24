@@ -1,8 +1,6 @@
 package com.gmail.aamelis.willmod.Items.Foods;
 
-import com.gmail.aamelis.willmod.Registries.ItemsInit;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Items;
 
 public class ModFoodProperties {
 
